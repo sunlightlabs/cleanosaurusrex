@@ -1,32 +1,33 @@
 from django.db import models
 
 class NamelessWorker(models.Model):
-
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
-
     is_active = models.BooleanField(default=False)
 
-
 class Assignment(models.Model):
-    date
-    debit ? # points to original deferral object
-    worker
+    date = models.DateField(null=False, blank=False)
+    debit = models.ForeignKey('Debit', null=True)  # points to original deferral object
+    worker = models.ForeignKey(NamelessWorker, null=False)
 
 class Debit(models.Model):
-    skipped_assignment
-    new_assignment ?
-    parent_debit ?
-    original_worker
-    timestamp
+    skipped_assignment = models.ForeignKey(Assignment, related_name='skipped_by', 
+                                           null=False)
+    new_assignment = models.ForeignKey(Assignment, related_name='created_for',
+                                       null=True)
+    parent_debit = models.ForeignKey('Debit', null=True)
+    original_worker = models.ForeignKey(NamelessWorker, null=False)
+    timestamp = models.DateTimeField(null=False)
 
 class Credit(models.Model):
-    spawning_debit ?
-    credited_debit ?
-    worker
-    timestamp
-    note
-    is_used = false
+    spawning_debit = models.ForeignKey(Debit, related_name='spawned_credit', 
+                                       null=True)
+    credited_debit = models.ForeignKey(Debit, related_name='satisfying_credit', 
+                                       null=True)
+    worker = models.ForeignKey(NamelessWorker, null=False)
+    timestamp = models.DateTimeField(null=False)
+    note = models.CharField(max_length=5000, null=True)
+    is_used = models.BooleanField(default=False)
 
 
 
