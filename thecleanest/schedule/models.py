@@ -1,5 +1,18 @@
 from django.db import models
 
+RATINGS = (
+    (-2, 'Absolutely disgusting; you should be ashamed of yourself.'),
+    (-1, 'Kind of gross.'),
+    (0, 'Meh.'),
+    (1, 'Decent job.'),
+    (1, 'I am proud to call you my colleague in cleanliness.'),
+)
+
+SUBJECTS = (
+    ('O', 'Organization'),
+    ('W', 'Worker'),
+)
+
 class NamelessWorker(models.Model):
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
@@ -53,4 +66,16 @@ class Coupon(models.Model):
     skipped_date = models.DateField(default=None, null=True)
     note = models.CharField(max_length=5000, null=True)
     timestamp = models.DateTimeField(null=False)
+
+class Rating(models.Model):
+    assignment = models.ForeignKey(Assignment, related_name="ratings")
+    timestamp = models.DateTimeField(default=datetime.datetime.now)
+    value = models.IntegerField(choices=RATINGS)
+    subject_of_judgement = models.CharField(max_length=1, choices=SUBJECTS)
+
+    class Meta:
+        ordering = ('-timestamp',)
+
+    def __unicode__(self):
+        pass
 
