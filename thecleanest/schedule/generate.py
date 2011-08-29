@@ -1,29 +1,7 @@
-"""
-
-deferrment_iter():
-
-    for d in deferrment where timestamp > 2 weeks from now:
-
-        yield d
-
-worker_iter():
-
-    for d in deferrment_iter:
-
-        yield d
-
-    for w in worker:
-
-        yield w
-
-for day in next_n_weeks:
-
-    if day.is_work_day:
-
-        worker = worker_iter.next
-
-        new assignment(day, worker)
-
+"""Logic for generating assignments. The basic logic is:
+       Find the latest assignment.
+       Select the next worker.
+       If that worker has a credit pending, schedule the worker associated with the corresponding debit.
 """
 
 from datetime import date, timedelta
@@ -45,15 +23,18 @@ def bootstrap_schedule():
         print "Bootstrapping %s" % (str(day), )
         a = Assignment(worker=worker, date=day)
         a.save()
-    
+
 def generate_schedule():
     assignments = Assignment.objects.filter().order_by('-date')[:1]
     if len(assignments) == 0:
         return bootstrap_schedule()
 
     latest_assignment = assignments[0]
+    start_worker = (latest_assignment.worker
+                    if latest_assignment.debits.count() == 0
+                    else latest_assignment.debits.order_by('timestamp')[0].worker)
 
-    workers = AlphaWorkerIter(start=latest_assignment.worker)
+    workers = AlphaWorkerIter(after=start_worker)
 
     start_date = latest_assignment.date + timedelta(days=1)
     stop_date = date.today() + timedelta(days=SCHED_HORIZON)

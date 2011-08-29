@@ -3,14 +3,15 @@ from schedule.models import NamelessWorker, Assignment
 class AlphaWorkerIter(object):
     """Iterates through active workers, in alphabetical order, starting at
     given `start` worker. The iterator never stops. Instead it wraps infinitely."""
-    def __init__(self, start=None):
-        assert isinstance(start, (NamelessWorker, type(None)))
+    def __init__(self, after=None):
+        assert isinstance(after, (NamelessWorker, type(None)))
         self._workers = [w for w in NamelessWorker.objects.filter(is_active=True,
                                                                  ).order_by('last_name', 
                                                                             'first_name')]
-        if start is not None:
-            while self._workers[0] != start:
-                self._workers.append(self._workers.pop(0))
+        if after is not None:
+            while self._workers[-1] != after:
+                w = self._workers.pop(0)
+                self._workers.append(w)
  
     def __iter__(self):
         return self
