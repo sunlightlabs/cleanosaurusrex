@@ -29,9 +29,19 @@ class NamelessWorker(models.Model):
     def full_name(self):
         return "%s %s" % (self.first_name, self.last_name)
 
+class AssignmentManager(models.Manager):
+
+    def current_assignment(self):
+        try:
+            return Assignment.objects.get(date=datetime.date.today())
+        except Assignment.DoesNotExist:
+            pass # just return None
+
 class Assignment(models.Model):
     date = models.DateField(null=False, blank=False, unique=True)
     worker = models.ForeignKey(NamelessWorker, related_name='assignments', null=False)
+
+    objects = AssignmentManager()
 
     class Meta:
         ordering = ('date',)
