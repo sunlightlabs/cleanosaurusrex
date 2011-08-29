@@ -10,18 +10,18 @@ class AlphaWorkerIter(object):
                                                                             'first_name')]
         if start is not None:
             while self._workers[0] != start:
-                self._workers.append(self._workers.pop())
+                self._workers.append(self._workers.pop(0))
  
     def __iter__(self):
         return self
 
     def next(self):
         try:
-            w = self._workers.pop()
+            w = self._workers.pop(0)
         except IndexError:
             raise StopIteration()
         self._workers.append(w)
-        return NamelessWorker(id=w.id)
+        return w
 
 class WorkerAssignmentIter(object):
     """Represents the normal assignment cycle, which is alphabetical.
