@@ -1,2 +1,4 @@
 django
 django-tastypie
+mysql-python
+
