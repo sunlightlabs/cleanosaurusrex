@@ -13,6 +13,7 @@ class Assignment(models.Model):
 class Debit(models.Model):
     worker = models.ForeignKey(NamelessWorker, related_name='debits', null=False)
     skipped_date = models.DateField(null=False)
+    timestamp = models.DateTimeField(null=False)
 
 class Credit(models.Model):
     # debit is null if the credit was created by decree
