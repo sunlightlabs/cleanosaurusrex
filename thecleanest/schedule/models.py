@@ -6,59 +6,22 @@ class NamelessWorker(models.Model):
     is_active = models.BooleanField(default=False)
 
 class Assignment(models.Model):
-    date = models.DateField(null=False, blank=False)
-    debit = models.ForeignKey('Debit', null=True)  # points to original deferral object
+    date = models.DateField(null=False, blank=False, unique=True)
     worker = models.ForeignKey(NamelessWorker, null=False)
 
 class Debit(models.Model):
-    skipped_assignment = models.ForeignKey(Assignment, related_name='skipped_by', 
-                                           null=False)
-    new_assignment = models.ForeignKey(Assignment, related_name='created_for',
-                                       null=True)
-    parent_debit = models.ForeignKey('Debit', null=True)
-    original_worker = models.ForeignKey(NamelessWorker, null=False)
-    timestamp = models.DateTimeField(null=False)
+    worker = models.ForeignKey(NamelessWorker, related_name='debits', null=False)
+    skipped_date = models.DateField(null=False)
 
 class Credit(models.Model):
-    spawning_debit = models.ForeignKey(Debit, related_name='spawned_credit', 
-                                       null=True)
-    credited_debit = models.ForeignKey(Debit, related_name='satisfying_credit', 
-                                       null=True)
-    worker = models.ForeignKey(NamelessWorker, null=False)
-    timestamp = models.DateTimeField(null=False)
+    # debit is null if the credit was created by decree
+    debit = models.ForeignKey(Debit, null=True)
+    worker = models.ForeignKey(NamelessWorker, related_name='credits', null=False)
+    # skipped_date is set when the generation function uses the credit
+    skipped_date = models.DateField(default=None, null=True)
     note = models.CharField(max_length=5000, null=True)
-    is_used = models.BooleanField(default=False)
+    timestamp = models.DateTime(null=False)
 
 
 
 
-"""
-
-deferrment_iter():
-
-    for d in deferrment where timestamp > 2 weeks from now:
-
-        yield d
-
-worker_iter():
-
-    for d in deferrment_iter:
-
-        yield d
-
-    for w in worker:
-
-        yield w
-
-for day in next_n_weeks:
-
-    if day.is_work_day:
-
-        worker = worker_iter.next
-
-        new assignment(day, worker)
-
-
-
-
-"""
