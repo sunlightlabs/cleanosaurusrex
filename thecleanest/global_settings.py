@@ -93,4 +93,5 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tastypie',
+    'thecleanest.schedule',
 )
