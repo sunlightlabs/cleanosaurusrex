@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 RATINGS = (
     (-2, 'Absolutely disgusting; you should be ashamed of yourself.'),
