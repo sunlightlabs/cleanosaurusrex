@@ -27,7 +27,7 @@ class Assignment(models.Model):
 
 class Debit(models.Model):
     worker = models.ForeignKey(NamelessWorker, related_name='debits', null=False)
-    skipped_date = models.DateField(null=False)
+    skipped_assignment = models.ForeignKey(Assignment, related_name='debits', null=True)
     timestamp = models.DateTimeField(null=False)
 
     class Meta:
