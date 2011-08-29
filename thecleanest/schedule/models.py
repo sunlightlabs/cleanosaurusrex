@@ -21,7 +21,7 @@ class Credit(models.Model):
     # skipped_date is set when the generation function uses the credit
     skipped_date = models.DateField(default=None, null=True)
     note = models.CharField(max_length=5000, null=True)
-    timestamp = models.DateTime(null=False)
+    timestamp = models.DateTimeField(null=False)
 
 
 
