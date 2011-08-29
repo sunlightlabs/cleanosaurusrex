@@ -61,10 +61,10 @@ class Debit(models.Model):
         ordering = ('timestamp',)
 
     def __unicode__(self):
-        return "%s skipped %s" % (self.worker.full_name(), self.skipped_date)
+        return "%s skipped %s" % (self.worker.full_name(), self.skipped_assignment.date)
 
 class Credit(models.Model):
-    debit = models.ForeignKey(Debit, null=True)
+    debit = models.ForeignKey(Debit, related_name='credits', null=True)
     worker = models.ForeignKey(NamelessWorker, related_name='credits', null=False)
     # skipped_date is set when the generation function uses the credit
     skipped_date = models.DateField(default=None, null=True)
