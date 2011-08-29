@@ -44,10 +44,13 @@ class Assignment(models.Model):
     objects = AssignmentManager()
 
     class Meta:
-        ordering = ('date',)
+        ordering = ('-date',)
 
     def __unicode__(self):
         return "%s %s" % (self.date, self.worker.full_name())
+
+    def is_complete(self):
+        return self.date < datetime.date.today()
 
 class Debit(models.Model):
     worker = models.ForeignKey(NamelessWorker, related_name='debits', null=False)
