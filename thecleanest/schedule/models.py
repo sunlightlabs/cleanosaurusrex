@@ -3,6 +3,7 @@ from django.db import models
 class NamelessWorker(models.Model):
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
+    email = models.EmailField()
     is_active = models.BooleanField(default=False)
 
 class Assignment(models.Model):
