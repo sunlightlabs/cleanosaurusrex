@@ -20,4 +20,5 @@ class Command(NoArgsCommand):
                     first_name=record['first_name'],
                     last_name=record['last_name'],
                     email=record['email'],
+                    is_active=True,
                 )
