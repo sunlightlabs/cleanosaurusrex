@@ -1,7 +1,10 @@
+from tastypie import fields
 from tastypie.resources import ModelResource
 from thecleanest.schedule.models import NamelessWorker, Assignment, Debit, Credit
 
 class NamelessWorkerResource(ModelResource):
+    assignments = fields.ToManyField('thecleanest.resources.AssignmentResource', 'assignments')
+
     class Meta:
         queryset = NamelessWorker.objects.all()
         resource_name = 'namelessworker'

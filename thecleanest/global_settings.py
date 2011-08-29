@@ -95,3 +95,5 @@ INSTALLED_APPS = (
     'tastypie',
     'thecleanest.schedule',
 )
+
+API_LIMIT_PER_PAGE = 100

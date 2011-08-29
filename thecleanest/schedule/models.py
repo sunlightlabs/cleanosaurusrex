@@ -17,7 +17,7 @@ class NamelessWorker(models.Model):
 
 class Assignment(models.Model):
     date = models.DateField(null=False, blank=False, unique=True)
-    worker = models.ForeignKey(NamelessWorker, null=False)
+    worker = models.ForeignKey(NamelessWorker, related_name='assignments', null=False)
 
     class Meta:
         ordering = ('date',)
