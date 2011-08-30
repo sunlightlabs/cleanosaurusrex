@@ -13,6 +13,9 @@ class AssignmentResource(ModelResource):
     class Meta:
         queryset = Assignment.objects.all()
         resource_name = 'assignment'
+        filtering = {
+            "date": ('exact', 'lte', 'gte')
+        }
 
 class DebitResource(ModelResource):
     class Meta:
