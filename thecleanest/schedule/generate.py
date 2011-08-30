@@ -26,6 +26,7 @@ def bootstrap_schedule():
         print "Bootstrapping %s" % (str(day), )
         a = Assignment(worker=worker, date=day)
         a.save()
+        email.assignment_notify(a)
 
 def generate_schedule():
     assignments = Assignment.objects.filter().order_by('-date')[:1]
