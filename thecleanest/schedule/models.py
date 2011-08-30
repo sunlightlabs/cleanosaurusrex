@@ -22,6 +22,7 @@ class NamelessWorker(models.Model):
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
     email = models.EmailField()
+    avatar_url = models.URLField(verify_exists=False, blank=True)
     is_active = models.BooleanField(default=False)
 
     objects = NamelessWorkerManager()

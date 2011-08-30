@@ -20,5 +20,6 @@ class Command(NoArgsCommand):
                     first_name=record['first_name'],
                     last_name=record['last_name'],
                     email=record['email'],
+                    avatar_url=record['avatar_url'],
                     is_active=True,
                 )
