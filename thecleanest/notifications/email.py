@@ -29,6 +29,7 @@ def defer_notify(debit):
         'worker': debit.skipped_assignment.worker,
         'slacker': debit.worker,
         'date': debit.skipped_assignment.date,
+        'assignment': debit.skipped_assignment,
     }
 
     # message to worker deferring their day

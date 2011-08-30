@@ -3,7 +3,7 @@ from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 from thecleanest.resources import *
 
-# admin.autodiscover()
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # url(r'^$', 'thecleanest.views.home', name='home'),
@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     # url(r'schedule/assignments/', 'schedule.views.assignments'),
     # url(r'schedule/debits/', 'schedule.views.debits'),
     # url(r'schedule/credits/', 'schedule.views.credits'),
+    url(r'^assignment/(?P<defer_code>\w{32})/defer/$', 'schedule.views.defer_assignment'),
     url(r'^kitchen/popover', direct_to_template, {'template': 'kitchen-popover.html'}),
     url(r'^kitchen', 'schedule.views.kitchen'),
     url(r'^schedule', 'schedule.views.current_schedule'),

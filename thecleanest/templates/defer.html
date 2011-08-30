@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if assignment %}
+
+        <p>Hey {{ assignment.worker.first_name }}, you sure you want to reschedule your kitchen duty on {{ assignment.date|date:"l, F j" }}?</p>
+
+        <form action="." method="post">
+            {% csrf_token %}
+            <input type="submit" value="Reschedule">
+        </form>
+
+    {% else %}
+
+        <p>This kitchen duty has already been rescheduled (or never existed!).</p>
+
+    {% endif %}
+
+{% endblock %}

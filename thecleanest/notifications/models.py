@@ -24,6 +24,7 @@ class Nudge(models.Model):
         epoch = (datetime.min if len(nudges) == 0
                               else nudges[0].timestamp)
         since = datetime.now() - epoch
+
         if since >= NUDGE_GRACE_PERIOD:
             email.nudge_notify(self)
 

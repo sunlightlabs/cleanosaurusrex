@@ -1,9 +1,27 @@
 
 from datetime import datetime, date
-from django.http import HttpResponse, Http404
-from django.shortcuts import render_to_response
+from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.shortcuts import render_to_response, render
 from django.core.serializers import serialize, deserialize
 from schedule.models import Assignment, Debit, Credit
+
+def defer_assignment(request, defer_code):
+
+    try:
+
+        assignment = Assignment.objects.get(defer_code=defer_code)
+
+        if request.method == 'POST':
+
+            assignment.defer()
+
+            return HttpResponseRedirect('/')
+
+    except Assignment.DoesNotExist:
+        assignment = None
+
+    return render(request, 'defer.html', {'assignment': assignment})
+
 
 def current_schedule(request):
     """JSON representation of the current schedule."""
@@ -15,10 +33,10 @@ def kitchen(request):
     if assignments is None:
         return Http404('No one is scheduled for kitchen duty!')
     else:
-        return render_to_response('kitchen.html', { 
+        return render_to_response('kitchen.html', {
                                       'worker': assignment.worker
                                   })
-    
+
 def assignments(request):
     assignments = Assignment.objects.all()
     assign_json = serialize('json', assignments)
