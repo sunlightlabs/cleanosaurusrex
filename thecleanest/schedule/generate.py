@@ -1,14 +1,16 @@
 """Logic for generating assignments. The basic logic is:
        Find the latest assignment.
-       Select the next worker.
-       If that worker has a credit pending, schedule the worker associated with the corresponding debit.
+       Select the next worker in the cycle.
+       If that worker has a credit pending, schedule the worker associated with the corresponding debit and mark the credit as used.
+       Otherwise if the worker as a coupon pending, schedule the next worker in the cycle, and mark the coupon as used.
+       Rinse and repeat.
 """
 
 from datetime import date, timedelta
 from thecleanest.schedule.models import NamelessWorker, Assignment, Debit, Credit, Coupon
 from thecleanest.schedule.workeriter import AlphaWorkerIter
 from thecleanest.schedule.workdays import workdays
-from itertools import islice, izip, dropwhile, takewhile
+from itertools import islice, izip, takewhile
 from settings import SCHED_HORIZON
 
 def bootstrap_schedule():
