@@ -38,12 +38,15 @@ class AssignmentResource(ModelResource):
 
 class DebitResource(ModelResource):
     credits = fields.ToManyField('thecleanest.resources.CreditResource', 'credits')
+    worker = fields.ToOneField(NamelessWorkerResource, 'worker')
+    skipped_assignment = fields.ToOneField(AssignmentResource, 'skipped_assignment')
 
     class Meta:
         queryset = Debit.objects.all()
 
 class CreditResource(ModelResource):
     debit = fields.ToOneField(DebitResource, 'debit')
+    worker = fields.ToOneField(NamelessWorkerResource, 'worker')
 
     class Meta:
         queryset = Credit.objects.all()
