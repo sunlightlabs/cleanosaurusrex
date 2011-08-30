@@ -63,7 +63,7 @@ class NudgeResource(ModelResource):
         resource_name = 'nudge'
         queryset = Nudge.objects.all()
 
-    def post_detail(self, request, **kwargs):
+    def post_list(self, request, **kwargs):
         today = date.today()
         assignment = Assignment.objects.current_assignment()
         if assignment is not None:
@@ -83,7 +83,7 @@ class BoneResource(ModelResource):
         resource_name = 'bone'
         queryset = Bone.objects.all()
 
-    def post_detail(self, request, **kwargs):
+    def post_list(self, request, **kwargs):
         assignment = Assignment.objects.current_assignment()
         if assignment is not None:
             bn = Bone(target=assignment.worker)

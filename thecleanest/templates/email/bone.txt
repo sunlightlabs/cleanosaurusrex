@@ -1,0 +1,6 @@
+Hey {{ worker.first_name }},
+
+I (and your co-workers) greatly appreciate the wonderful job you are doing on kitchen duty!
+
+Gratefully yours,
+Cleanosaurus Rex

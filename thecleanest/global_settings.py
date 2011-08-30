@@ -101,6 +101,8 @@ INSTALLED_APPS = (
 )
 
 EMAIL_BACKEND = "postmark.backends.PostmarkBackend"
+EMAIL_SENDER = "Cleanosaurus Rex <cleanosaurusrex@sunlightfoundation.com>"
+EMAIL_RECIPIENT = "jcarbaugh@sunlightfoundation.com" # None to not override
 
 POSTMARK_API_KEY = "14da7853-3560-4179-a5a8-d91f380796b4"
 

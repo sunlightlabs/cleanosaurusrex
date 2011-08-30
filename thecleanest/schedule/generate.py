@@ -7,6 +7,7 @@
 """
 
 from datetime import date, timedelta
+from thecleanest.notifications import email
 from thecleanest.schedule.models import NamelessWorker, Assignment, Debit, Credit, Coupon
 from thecleanest.schedule.workeriter import AlphaWorkerIter
 from thecleanest.schedule.workdays import workdays
@@ -25,6 +26,7 @@ def bootstrap_schedule():
         print "Bootstrapping %s" % (str(day), )
         a = Assignment(worker=worker, date=day)
         a.save()
+        email.assignment_notify(a)
 
 def generate_schedule():
     assignments = Assignment.objects.filter().order_by('-date')[:1]
@@ -63,6 +65,9 @@ def generate_schedule():
             new_assignment = Assignment(worker=earliest_credit.debit.worker,
                                         date=day)
             new_assignment.save()
+
+            email.assignment_notify(new_assignment)
+
         else:
             coupons = worker.unused_coupons().order_by('timestamp')
             while len(coupons) > 0:
@@ -76,10 +81,12 @@ def generate_schedule():
                                         date=day)
             new_assignment.save()
 
+            email.assignment_notify(new_assignment)
+
 
 
 
 
 if __name__ == "__main__":
     print generate_schedule()
-    
+

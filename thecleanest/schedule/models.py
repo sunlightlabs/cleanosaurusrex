@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models import Q
+from thecleanest.notifications import email
 import datetime
+import uuid
 
 RATINGS = (
     (-2, 'Absolutely disgusting; you should be ashamed of yourself.'),
@@ -14,6 +16,9 @@ SUBJECTS = (
     ('O', 'Organization'),
     ('W', 'Worker'),
 )
+
+def generate_uuid():
+    return uuid.uuid4().hex
 
 class NamelessWorkerManager(models.Model):
     pass
@@ -54,6 +59,7 @@ class AssignmentManager(models.Manager):
 class Assignment(models.Model):
     date = models.DateField(null=False, blank=False, unique=True)
     worker = models.ForeignKey(NamelessWorker, related_name='assignments', null=False)
+    defer_code = models.CharField(max_length=32, default=generate_uuid)
 
     objects = AssignmentManager()
 
@@ -102,7 +108,10 @@ class Assignment(models.Model):
 
         # resassign worker on current assignment
         self.worker = new_worker
+        self.defer_code = generate_uuid()
         self.save()
+
+        email.defer_notify(debit)
 
         return debit
 

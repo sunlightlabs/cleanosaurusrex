@@ -23,7 +23,7 @@ class Nudge(models.Model):
                                       timestamp__range=today_range).order_by('-timestamp')
         epoch = (datetime.min if len(nudges) == 0
                               else nudges[0].timestamp)
-        since = datetime.now - epoch
+        since = datetime.now() - epoch
         if since >= NUDGE_GRACE_PERIOD:
             email.nudge_notify(self)
 
