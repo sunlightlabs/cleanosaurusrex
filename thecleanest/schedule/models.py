@@ -67,8 +67,12 @@ class Assignment(models.Model):
 
     def defer(self):
 
-        # get a range of a week before and after today
         today = datetime.date.today()
+
+        if today > self.date:
+            raise ValueError('unable to defer assignments that have already been completed')
+
+        # get a range of a week before and after today
         week_ago = today - datetime.timedelta(7)
         week_ahead = today + datetime.timedelta(7)
 
