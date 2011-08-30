@@ -74,8 +74,8 @@ button {  width: auto; overflow: visible; }
 
 @font-face {
     font-family: 'OstrichSansRoundedMedium';
-    src: url('../fonts/ostrich-rounded-webfont.woff') format('woff'),
-         url('../fonts/ostrich-rounded-webfont.ttf') format('truetype');
+    src: url('/static/fonts/ostrich-rounded-webfont.woff') format('woff'),
+         url('/static/fonts/ostrich-rounded-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -97,12 +97,12 @@ ol, ul {
 
 body {
 	color: #363942;
-	background: #363942 url('../images/bg-tile.jpg') top left repeat;
+	background: #363942 url('/static/images/bg-tile.jpg') top left repeat;
 }
 
 #backdrop {
-	background: url('../images/shading-top.png') top left repeat-x;
-	background: url('../images/shading-bottom.png') bottom left repeat-x;
+	background: url('/static/images/shading-top.png') top left repeat-x;
+	background: url('/static/images/shading-bottom.png') bottom left repeat-x;
 	background-color: #f9f3e6;
 	width: 785px;
 	margin: 0px auto;
@@ -117,13 +117,13 @@ header {
 }
 
 h1 {
-	background: url('../images/rex-logo.png') top left no-repeat;
+	background: url('/static/images/rex-logo.png') top left no-repeat;
 	width: 702px;
 	height: 98px;
 }
 
 h2 {
-	background: url('../images/tagline.png') top left no-repeat;
+	background: url('/static/images/tagline.png') top left no-repeat;
 	width: 515px;
 	height: 27px;
 }
@@ -186,7 +186,7 @@ h2 {
 
 #today-text-kit {
 	color: #ffffff;
-	background: url('../images/text-bar.jpg') center top no-repeat;
+	background: url('/static/images/text-bar.jpg') center top no-repeat;
 	width: 718px;
 	height: 60px;
 	margin: 0 0 0 12px;
@@ -209,7 +209,7 @@ h2 {
 }
 
 #nudge-button {
-	background: url('../images/nudge-button-lg.png') center top no-repeat;
+	background: url('/static/images/nudge-button-lg.png') center top no-repeat;
 	width: 255px;
 	height: 80px;
 	margin-right: 37px;
@@ -220,7 +220,7 @@ h2 {
 }
 
 #bone-button {
-	background: url('../images/bone-button-lg.png') center top no-repeat;
+	background: url('/static/images/bone-button-lg.png') center top no-repeat;
 	width: 255px;
 	height: 80px;
 	border: none;
