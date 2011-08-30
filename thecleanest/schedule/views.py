@@ -1,5 +1,6 @@
 
-from datetime import datetime, date
+from datetime import date, timedelta
+import calendar
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, render
 from django.core.serializers import serialize, deserialize
@@ -26,7 +27,18 @@ def defer_assignment(request, defer_code):
 def current_schedule(request):
     """JSON representation of the current schedule."""
     # Get current and future assignments
-    return render_to_response('schedule.html')
+    assignment = Assignment.objects.current_assignment()
+    today = date.today()
+    today_weekday = calendar.weekday(today.year, today.month, today.day)
+    monday = date.today() - timedelta(days=today_weekday)
+    assignments = Assignment.objects.filter(date__gte=monday).order_by('date')[:10]
+
+    return render_to_response('schedule.html', {
+                                  'today': str(today),
+                                  'monday': str(monday),
+                                  'assignments': assignments,
+                                  'current_assignment': assignment
+                              })
 
 def kitchen(request):
     assignment = Assignment.objects.current_assignment()
