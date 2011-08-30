@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from thecleanest.notifications import email
 import datetime
 
 RATINGS = (
@@ -103,6 +104,8 @@ class Assignment(models.Model):
         # resassign worker on current assignment
         self.worker = new_worker
         self.save()
+
+        email.defer_notify(debit)
 
         return debit
 

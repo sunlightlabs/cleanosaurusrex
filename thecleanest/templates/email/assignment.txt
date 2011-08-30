@@ -1,0 +1,6 @@
+Hey {{ worker.first_name }},
+
+You've been assigned kitchen duty on {{ assignment.date|date:"D, F j" }}.
+
+Sincerely yours,
+Cleanosaurus Rex

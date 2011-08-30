@@ -1,0 +1,6 @@
+Hey {{ slacker.first_name }},
+
+A messy kitchen makes Cleanousaurus Rex (and your co-workers) very mad!
+
+Angrily yours,
+Cleanosaurus Rex
