@@ -1,4 +1,4 @@
 django
+django-postmark
 django-tastypie
 mysql-python
-
