@@ -14,6 +14,7 @@ class NamelessWorkerResource(ModelResource):
         resource_name = 'namelessworker'
 
 class AssignmentResource(ModelResource):
+    worker = fields.ToOneField(NamelessWorkerResource, 'worker')
 
     class Meta:
         allowed_methods = ['get','post']
@@ -71,6 +72,24 @@ class NudgeResource(ModelResource):
             ndg_res = NudgeResource()
             ndg_location = ndg_res.get_resource_uri(ndg)
             return HttpCreated(location=ndg_location)
+        else:
+            return HttpBadRequest()
+
+class BoneResource(ModelResource):
+    target = fields.ToOneField(NamelessWorkerResource, 'target')
+    class Meta:
+        allowed_methods = ['get', 'post']
+        authorization = Authorization()
+        resource_name = 'bone'
+        queryset = Bone.objects.all()
+
+    def post_detail(self, request, **kwargs):
+        assignment = Assignment.objects.current_assignment()
+        if assignment is not None:
+            bn = Bone(target=assignment.worker)
+            bn_res = BoneResource()
+            bn_location = bn_res.get_resource_uri(bn)
+            return HttpCreated(location=bn_location)
         else:
             return HttpBadRequest()
 
