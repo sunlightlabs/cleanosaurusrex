@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -101,6 +102,8 @@ INSTALLED_APPS = (
 EMAIL_BACKEND = "postmark.backends.PostmarkBackend"
 
 POSTMARK_API_KEY = "14da7853-3560-4179-a5a8-d91f380796b4"
+
+NUDGE_GRACE_PERIOD = timedelta(hours=1, minutes=30)
 
 API_LIMIT_PER_PAGE = 100
 

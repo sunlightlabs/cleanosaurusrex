@@ -1,8 +1,10 @@
+from datetime import date
 from tastypie import fields
 from tastypie.authorization import Authorization
 from tastypie.http import HttpBadRequest, HttpCreated
 from tastypie.resources import ModelResource
 from thecleanest.schedule.models import NamelessWorker, Assignment, Debit, Credit
+from thecleanest.notifications.models import Nudge, Bone
 
 class NamelessWorkerResource(ModelResource):
     assignments = fields.ToManyField('thecleanest.resources.AssignmentResource', 'assignments')
@@ -50,3 +52,23 @@ class CreditResource(ModelResource):
 
     class Meta:
         queryset = Credit.objects.all()
+
+
+class NudgeResource(ModelResource):
+    target = fields.ToOneField(NamelessWorkerResource, 'target')
+    class Meta:
+        allowed_methods = ['get','post']
+        authorization= Authorization()
+        queryset = Nudge.objects.all()
+
+    def post_detail(self, request, **kwargs):
+        today = date.today()
+        assignment = Assignment.objects.get(date=today)
+        ndg = Nudge(target=assignment.worker)
+        ndg.save()
+        ndg_res = NudgeResource()
+        ndg_location = ndg_res.get_resource_uri(ndg)
+        return HttpCreated(location=ndg_location)
+
+
+
