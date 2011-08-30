@@ -1,11 +1,19 @@
 {% extends "base.html" %}
 
+{% block title %}
+   REX - KITCHEN DUTY
+{% endblock %}
+
+{% block head_prologue %}
+    <script type="text/javascript" src="static/js/kitchen.js"></script>
+{% endblock %}
+
 {% block content %}    
 	<div id="backdrop">
 	    <div role="main">
 			<section id="today-kitchen">	
 				<figure id="large-photo-area">
-					<img id="large-photo-kit" class="photo-rotate" src="static/images/sample-large.jpg"></img>
+                    <img id="large-photo-kit" class="photo-rotate" src="{{ worker.avatar_url }}"></img>
 				</figure>
 			</section>
 			<section id="today-bar-area">
@@ -24,4 +32,5 @@
 			</section>
 			<div class="clear"></div>	
 	    </div>
+        <iframee id="popover" style="display: none;"></iframee>
 {% endblock %}
