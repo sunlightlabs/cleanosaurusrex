@@ -18,6 +18,9 @@ class AssignmentResource(ModelResource):
         authorization= Authorization()
         queryset = Assignment.objects.all()
         resource_name = 'assignment'
+        filtering = {
+            "date": ('exact', 'lte', 'gte')
+        }
 
     def post_detail(self, request, **kwargs):
 

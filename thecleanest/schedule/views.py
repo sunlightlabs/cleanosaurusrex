@@ -8,12 +8,7 @@ from schedule.models import Assignment, Debit, Credit
 def current_schedule(request):
     """JSON representation of the current schedule."""
     # Get current and future assignments
-    assignments = Assignment.objects.filter(date__gte=date.today())
-    # Remove deferred assignments
-    assignments = [a for a in assignments
-                   if a.skipped_by is None]
-    assign_json = serialize('json', assignments)
-    return HttpResponse(assign_json, mimetype='application/json')
+    return render_to_response('schedule.html')
 
 def assignments(request):
     assignments = Assignment.objects.all()
