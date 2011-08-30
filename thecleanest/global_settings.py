@@ -97,6 +97,7 @@ INSTALLED_APPS = (
     'postmark',
     'tastypie',
     'thecleanest.schedule',
+    'thecleanest.notifications',
 )
 
 EMAIL_BACKEND = "postmark.backends.PostmarkBackend"
