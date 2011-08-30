@@ -59,7 +59,7 @@ class AssignmentManager(models.Manager):
 class Assignment(models.Model):
     date = models.DateField(null=False, blank=False, unique=True)
     worker = models.ForeignKey(NamelessWorker, related_name='assignments', null=False)
-    defer_id = models.CharField(max_length=32, default=generate_uuid)
+    defer_code = models.CharField(max_length=32, default=generate_uuid)
 
     objects = AssignmentManager()
 
@@ -108,7 +108,7 @@ class Assignment(models.Model):
 
         # resassign worker on current assignment
         self.worker = new_worker
-        self.defer_id = generate_uuid()
+        self.defer_code = generate_uuid()
         self.save()
 
         email.defer_notify(debit)
