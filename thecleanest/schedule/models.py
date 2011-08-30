@@ -59,10 +59,31 @@ class Assignment(models.Model):
     def is_complete(self):
         return self.date < datetime.date.today()
 
+    def defer(self):
+
+        deferred_workers = NamelessWorker.objects.filter()
+        new_worker = NamelessWorker.objects.exclude(worker=self.worker).order_by('?')[0]
+        # TODO: also filter new_worker by deferred list
+
+        debit = Debit.objects.create(
+            worker=self.worker,
+            skipped_assignment=self,
+        )
+
+        credit = Credit.objects.create(
+            debit=debit,
+            worker=new_worker,
+        )
+
+        self.worker = new_worker
+
+        return debit
+
+
 class Debit(models.Model):
     worker = models.ForeignKey(NamelessWorker, related_name='debits', null=False)
     skipped_assignment = models.ForeignKey(Assignment, related_name='debits', null=True)
-    timestamp = models.DateTimeField(null=False)
+    timestamp = models.DateTimeField(default=datetime.datetime.now)
 
     class Meta:
         ordering = ('timestamp',)
@@ -75,7 +96,8 @@ class Credit(models.Model):
     worker = models.ForeignKey(NamelessWorker, related_name='credits', null=False)
     # skipped_date is set when the generation function uses the credit
     skipped_date = models.DateField(default=None, null=True)
-    timestamp = models.DateTimeField(null=False)
+    timestamp = models.DateTimeField(default=datetime.datetime.now)
+
     class Meta:
         ordering = ('timestamp',)
 
