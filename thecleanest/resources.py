@@ -1,4 +1,6 @@
 from tastypie import fields
+from tastypie.authorization import Authorization
+from tastypie.http import HttpBadRequest, HttpCreated
 from tastypie.resources import ModelResource
 from thecleanest.schedule.models import NamelessWorker, Assignment, Debit, Credit
 
@@ -10,14 +12,35 @@ class NamelessWorkerResource(ModelResource):
         resource_name = 'namelessworker'
 
 class AssignmentResource(ModelResource):
+
     class Meta:
+        allowed_methods = ['get','post']
+        authorization= Authorization()
         queryset = Assignment.objects.all()
         resource_name = 'assignment'
 
+    def post_detail(self, request, **kwargs):
+
+        if 'defer' in request.POST:
+
+            assignment = Assignment.objects.get(pk=kwargs['pk'])
+            debit = assignment.defer()
+
+            debit_res = DebitResource()
+            location = debit_res.get_resource_uri(debit)
+
+            return HttpCreated(location=location)
+
+        return HttpBadRequest()
+
 class DebitResource(ModelResource):
+    credits = fields.ToManyField('thecleanest.resources.CreditResource', 'credits')
+
     class Meta:
         queryset = Debit.objects.all()
 
 class CreditResource(ModelResource):
+    debit = fields.ToOneField(DebitResource, 'debit')
+
     class Meta:
         queryset = Credit.objects.all()

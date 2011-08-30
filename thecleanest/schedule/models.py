@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 import datetime
 
 RATINGS = (
@@ -14,11 +15,16 @@ SUBJECTS = (
     ('W', 'Worker'),
 )
 
+class NamelessWorkerManager(models.Model):
+    pass
+
 class NamelessWorker(models.Model):
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
     email = models.EmailField()
     is_active = models.BooleanField(default=False)
+
+    objects = NamelessWorkerManager()
 
     class Meta:
         ordering = ('last_name', 'first_name')
@@ -54,21 +60,37 @@ class Assignment(models.Model):
 
     def defer(self):
 
-        deferred_workers = NamelessWorker.objects.filter()
-        new_worker = NamelessWorker.objects.exclude(worker=self.worker).order_by('?')[0]
-        # TODO: also filter new_worker by deferred list
+        # get a range of a week before and after today
+        today = datetime.date.today()
+        week_ago = today - datetime.timedelta(7)
+        week_ahead = today + datetime.timedelta(7)
 
+        # get a list of worker ids that have deferred within this 2 week range
+        deferred_worker_ids = NamelessWorker.objects.filter(
+            debits__skipped_assignment__date__range=(week_ago, week_ahead)
+        ).values_list('pk', flat=True)
+
+        # get a random worker that isn't the current one or a recently deferring worker
+
+        new_worker = NamelessWorker.objects.exclude(
+            Q(pk=self.worker.pk) | Q(pk__in=deferred_worker_ids)
+        ).order_by('?')[0]
+
+        # create the debit
         debit = Debit.objects.create(
             worker=self.worker,
             skipped_assignment=self,
         )
 
+        # create the credit
         credit = Credit.objects.create(
             debit=debit,
             worker=new_worker,
         )
 
+        # resassign worker on current assignment
         self.worker = new_worker
+        self.save()
 
         return debit
 

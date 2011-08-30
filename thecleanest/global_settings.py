@@ -92,9 +92,14 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'postmark',
     'tastypie',
     'thecleanest.schedule',
 )
+
+EMAIL_BACKEND = "postmark.backends.PostmarkBackend"
+
+POSTMARK_API_KEY = "14da7853-3560-4179-a5a8-d91f380796b4"
 
 API_LIMIT_PER_PAGE = 100
 
