@@ -1,3 +1,4 @@
+from django.views.generic.simple import direct_to_template
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 from thecleanest.resources import *
@@ -11,6 +12,7 @@ urlpatterns = patterns('',
     # url(r'schedule/assignments/', 'schedule.views.assignments'),
     # url(r'schedule/debits/', 'schedule.views.debits'),
     # url(r'schedule/credits/', 'schedule.views.credits'),
+    url(r'^kitchen', direct_to_template, {'template': 'kitchen.html'}),
     url(r'^schedule', 'schedule.views.current_schedule'),
     url(r'^admin/', include(admin.site.urls)),
 )
