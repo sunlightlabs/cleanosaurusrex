@@ -95,6 +95,7 @@ class BoneResource(ModelResource):
         assignment = Assignment.objects.current_assignment()
         if assignment is not None:
             bn = Bone(target=assignment.worker)
+            bn.save()
             bn_res = BoneResource()
             bn_location = bn_res.get_resource_uri(bn)
             return HttpCreated(location=bn_location)
