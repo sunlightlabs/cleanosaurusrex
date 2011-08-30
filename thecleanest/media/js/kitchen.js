@@ -1,35 +1,43 @@
 (function(){
     function on_nudge_success (data, textStatus, jqXHR) {
-        $("#mask").hide();
-        $("#overlay").hide();
+        dismiss_nudge_dialog();
     }
 
     function on_nudge_error (jqXHR, textStatus, errorThrown) {
     }
 
     function on_bone_success (data, textStatus, jqXHR) {
-        alert('Bone given');
+        dismiss_bone_dialog();
     }
 
     function on_bone_error (jqXHR, textStatus, errorThrown) {
     }
 
-    function popover (data, textStatusm, jqXHR) {
-        var frag = document.createDocumentFragment();
-        $(frag).html(data);
-        $("#yea-button", frag).click(function(){
-        });
-        $("#popover *").remove();
-        $("#popover").append(frag);
-        $("#popover").show();
+    function confirm_nudge () {
+        $("#mask").show();
+        $("#pop-over").show();
+    }
+
+    function dismiss_nudge_dialog () {
+        $("#mask").hide();
+        $("#pop-over").hide();
+    }
+
+    function confirm_bone () {
+        $("#mask").show();
+        $("#pop-over2").show();
+    }
+
+    function dismiss_bone_dialog () {
+        $("#mask").hide();
+        $("#pop-over2").hide();
     }
 
     $(document).ready(function(){
         var today = Date.today();
 
         $("#nudge-button").click(function(){
-            $("#mask").show();
-            $("#overlay").show();
+            confirm_nudge();
             return false;
         });
 
@@ -41,15 +49,23 @@
         });
 
         $("#nay-button").click(function(){
-            $("#mask").hide();
-            $("#overlay").hide();
+            dismiss_nudge_dialog();
         });
 
         $("#bone-button").click(function(){
+            confirm_bone();
+            return false;
+        });
+
+        $("#yea-button2").click(function(){
             $.ajax('/api/bone/',
                    { type: 'post',
                      success: on_bone_success,
                      error: on_bone_error });
+        });
+
+        $("#nay-button2").click(function(){
+            dismiss_bone_dialog();
         });
     });
 })();

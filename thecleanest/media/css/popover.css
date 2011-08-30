@@ -80,7 +80,6 @@ button {  width: auto; overflow: visible; }
 	text-indent: -9999em;
 	display: block;
 }
-alias lei='deactivate >/dev/null 2>&1; cd ~/lei && . lei-env/bin/activate && cd website'
 
 ol, ul {
 	list-style-type: none;
@@ -88,7 +87,7 @@ ol, ul {
 }
 
 #pop-over {
-	background: #f9f3e6 url('../images/pop-tile.jpg') top left repeat;
+	background: #f9f3e6 url('/static/images/pop-tile.jpg') top left repeat;
 	width: 594px;
 	height: 365px;
 	border: 3px #363942 solid;
@@ -100,13 +99,32 @@ ol, ul {
 	box-shadow: #998675 1px 1px 3px;
 }
 
-#pop-over header {
+#pop-over2 {
+	background: #f9f3e6 url('/static/images/pop-tile.jpg') top left repeat;
+	width: 594px;
+	height: 365px;
+	border: 3px #363942 solid;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	-moz-box-shadow: #998675 1px 1px 3px;
+	-webkit-box-shadow: #998675 1px 1px 3px;
+	box-shadow: #998675 1px 1px 3px;
+}
+
+#pop-over header, #pop-over2 header {
 	width: 503px;
 	margin: 35px auto;
 }
 
 #pop-over h1 {
-	background: url('../images/nudge-banner.png') top left no-repeat;
+	background: url('/static/images/nudge-banner.png') top left no-repeat;
+	width: 503px;
+	height: 106px;
+}
+
+#pop-over2 h1 {
+	background: url('/static/images/bone-banner.png') top left no-repeat;
 	width: 503px;
 	height: 106px;
 }
@@ -116,7 +134,17 @@ ol, ul {
 }
 
 #yea-button {
-	background: url('../images/yea-button.png') center top no-repeat;
+	background: url('/static/images/yea-button.png') center top no-repeat;
+	width: 440px;
+	height: 65px;
+	margin-bottom: 22px;
+	border: none;
+	display: block;
+	cursor: pointer;
+}
+
+#yea-button2 {
+	background: url('/static/images/yea-button2.png') center top no-repeat;
 	width: 440px;
 	height: 65px;
 	margin-bottom: 22px;
@@ -126,7 +154,16 @@ ol, ul {
 }
 
 #nay-button {
-	background: url('../images/nay-button.png') center top no-repeat;
+	background: url('/static/images/nay-button.png') center top no-repeat;
+	width: 440px;
+	height: 65px;
+	border: none;
+	display: block;
+	cursor: pointer;
+}
+
+#nay-button2 {
+	background: url('/static/images/nay-button.png') center top no-repeat;
 	width: 440px;
 	height: 65px;
 	border: none;
