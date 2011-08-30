@@ -59,16 +59,20 @@ class NudgeResource(ModelResource):
     class Meta:
         allowed_methods = ['get','post']
         authorization= Authorization()
+        resource_name = 'nudge'
         queryset = Nudge.objects.all()
 
     def post_detail(self, request, **kwargs):
         today = date.today()
-        assignment = Assignment.objects.get(date=today)
-        ndg = Nudge(target=assignment.worker)
-        ndg.save()
-        ndg_res = NudgeResource()
-        ndg_location = ndg_res.get_resource_uri(ndg)
-        return HttpCreated(location=ndg_location)
+        assignment = Assignment.objects.current_assignment()
+        if assignment is not None:
+            ndg = Nudge(target=assignment.worker)
+            ndg.save()
+            ndg_res = NudgeResource()
+            ndg_location = ndg_res.get_resource_uri(ndg)
+            return HttpCreated(location=ndg_location)
+        else:
+            return HttpBadRequest()
 
 
 
