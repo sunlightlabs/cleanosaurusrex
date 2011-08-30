@@ -29,6 +29,13 @@ class NamelessWorker(models.Model):
     def full_name(self):
         return "%s %s" % (self.first_name, self.last_name)
 
+    def unused_credits(self):
+        return self.credits.filter(skipped_date__isnull=True)
+
+    def unused_coupons(self):
+        return self.coupons.filter(skipped_date__isnull=True)
+
+
 class AssignmentManager(models.Manager):
 
     def current_assignment(self):

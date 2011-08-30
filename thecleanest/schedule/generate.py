@@ -53,9 +53,9 @@ def generate_schedule():
 
     for day in days_to_schedule:
         print "Assigning %s" % (str(day), )
+
         worker = workers.next()
-        credits = Credit.objects.filter(worker=worker, 
-                                        skipped_date__isnull=True).order_by('timestamp')
+        credits = worker.unused_credits().order_by('timestamp')
         if len(credits) > 0:
             earliest_credit = credits[0]
             earliest_credit.skipped_date = day
@@ -64,13 +64,13 @@ def generate_schedule():
                                         date=day)
             new_assignment.save()
         else:
-            coupons = Coupon.objects.filter(worker=worker,
-                                            skipped_date__isnull=True).order_by('timestamp')
-            if len(coupons) > 0:
+            coupons = worker.unused_coupons().order_by('timestamp')
+            while len(coupons) > 0:
                 earliest_coupon = coupons[0]
-                earliest_credit.skipped_date = day
+                earliest_coupon.skipped_date = day
                 earliest_coupon.save()
                 worker = workers.next()
+                coupons = worker.unused_coupons().order_by('timestamp')
 
             new_assignment = Assignment(worker=worker,
                                         date=day)
