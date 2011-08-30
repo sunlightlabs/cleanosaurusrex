@@ -8,7 +8,7 @@ admin.site.register(NamelessWorker, NamelessWorkerAdmin)
 
 class AssignmentAdmin(admin.ModelAdmin):
     list_display = ('date', 'worker', 'is_complete')
-    readonly_fields = ('date',)
+    readonly_fields = ('date','defer_code')
 admin.site.register(Assignment, AssignmentAdmin)
 
 admin.site.register(Credit)

@@ -27,13 +27,21 @@ class AssignmentResource(ModelResource):
 
     def post_detail(self, request, **kwargs):
 
+        assignment = Assignment.objects.get(pk=kwargs['pk'])
+
         if 'defer' in request.POST:
 
-            assignment = Assignment.objects.get(pk=kwargs['pk'])
             debit = assignment.defer()
-
             debit_res = DebitResource()
             location = debit_res.get_resource_uri(debit)
+
+            return HttpCreated(location=location)
+
+        elif 'nudge' in request.POST:
+
+            nudge = Nudge.objects.create(target=assignment.worker)
+            nudge_res = NudgeResource()
+            location = nudge_res.get_resource_uri(nudge)
 
             return HttpCreated(location=location)
 

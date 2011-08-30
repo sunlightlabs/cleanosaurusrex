@@ -1,6 +1,10 @@
 Hey {{ worker.first_name }},
 
-You've been assigned kitchen duty on {{ date|date:"D, F j" }}. Don't worry, {{ slacker.full_name }} will handle your next day for you.
+You've been assigned kitchen duty on {{ date|date:"l, F j" }}. Don't worry, {{ slacker.full_name }} will handle your next day for you.
+
+Click the following link if you are unable to serve your noble duty on this day:
+
+http://localhost:8000/assignment/{{ assignment.defer_code }}/defer/
 
 Sincerely yours,
 Cleanosaurus Rex
