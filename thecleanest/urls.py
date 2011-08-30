@@ -2,7 +2,7 @@ from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 from thecleanest.resources import *
 
-# admin.autodiscover()
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # url(r'^$', 'thecleanest.views.home', name='home'),
