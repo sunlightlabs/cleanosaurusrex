@@ -74,8 +74,8 @@ button {  width: auto; overflow: visible; }
 
 @font-face {
     font-family: 'OstrichSansRoundedMedium';
-    src: url('static/fonts/ostrich-rounded-webfont.woff') format('woff'),
-         url('static/fonts/ostrich-rounded-webfont.ttf') format('truetype');
+    src: url('../fonts/ostrich-rounded-webfont.woff') format('woff'),
+         url('../fonts/ostrich-rounded-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -112,8 +112,8 @@ body {
 }
 
 header {
-	width: 785px;
-	padding: 25px 42px 0px 41px
+	width: 702px;
+	padding: 25px 42px 0px 41px;
 }
 
 h1 {
@@ -126,43 +126,77 @@ h2 {
 	background: url('../images/tagline.png') top left no-repeat;
 	width: 515px;
 	height: 27px;
-	display: inline-block;
 }
 
 #feature {
-	width: 785px;
-	padding: 15px 135px 35px 0;
+	width: 515px;
+	padding: 15px 94px 0 93px;
 }
 
 #kitchen {
 	width: 785px;
+	padding: 17px 0 0 0;
+}
+
+#main-page {
+	
 }
 
 #today-kitchen {
-	padding: 17px 153px 0px 152px;
+	width: 480px;
+	padding: 0px 153px 0px 152px;
+}
+
+#today-main {
+	
+}
+
+#today-inset {
+	
+}
+
+#med-photo {
+	width: 181px;
+	height: 142px;
+	border: 1px solid #f9f3e6;
+}
+
+#today-inset h1 {
+	
 }
 
 #large-photo-kit {
 	width: 480px;
 	height: 350px;
-	border: 1px #363942 solid;
 }
 
 #today-bar-area {
-	width: 785px;
+	width: 732px;
+	margin: -4px 0 0 0;
 	padding: 0px 27px 0px 26px;
+}
+
+#rex-kit {
+	background: url('/static/images/rex-mark1.png');
+	width: 130px;
+	height: 147px;
+	margin: -55px 0 0 0;
+	float: left;
 }
 
 #today-text-kit {
 	color: #ffffff;
 	background: url('../images/text-bar.jpg') center top no-repeat;
-	width: 730px;
+	width: 718px;
 	height: 60px;
+	margin: 0 0 0 12px;
 }
 
 #today-text {
-	font-family: 'Ostrich Sans Rounded Medium';
+	font-family: 'OstrichSansRoundedMedium';
 	font-size: 46px;
+	padding: 4px 0px 0px 130px;
+	display: block;
 }
 
 .rotate-names {
@@ -171,7 +205,7 @@ h2 {
 
 #buttons-area {
 	display: block;
-	padding: 25px 119px 0px;
+	padding: 0 119px 10px;
 }
 
 #nudge-button {

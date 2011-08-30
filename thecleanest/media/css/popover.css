@@ -80,6 +80,7 @@ button {  width: auto; overflow: visible; }
 	text-indent: -9999em;
 	display: block;
 }
+alias lei='deactivate >/dev/null 2>&1; cd ~/lei && . lei-env/bin/activate && cd website'
 
 ol, ul {
 	list-style-type: none;
@@ -99,12 +100,12 @@ ol, ul {
 	box-shadow: #998675 1px 1px 3px;
 }
 
-header {
+#pop-over header {
 	width: 503px;
 	margin: 35px auto;
 }
 
-h1 {
+#pop-over h1 {
 	background: url('../images/nudge-banner.png') top left no-repeat;
 	width: 503px;
 	height: 106px;

@@ -6,31 +6,48 @@
 
 {% block head_prologue %}
     <script type="text/javascript" src="static/js/kitchen.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/popover.css">
 {% endblock %}
 
 {% block content %}    
-	<div id="backdrop">
-	    <div role="main">
-			<section id="today-kitchen">	
-				<figure id="large-photo-area">
-                    <img id="large-photo-kit" class="photo-rotate" src="{{ worker.avatar_url }}"></img>
-				</figure>
-			</section>
-			<section id="today-bar-area">
-				<div id="rex-kitchen"></div>
-				<div id="today-text-kit">
-					<span id="today-text">TODAY'S KITCHEN CLEANOSAUR: <span class="rotate-names">CHRIS R.</span></span>
-				</div>
-			</section>
-			<section id="buttons-area">
-				<button id="nudge-button" class="replace" title="Give 'em a nudge!" type="" value="">
-					<span>Give 'em a nudge!</span>
-				</button>
-				<button id="bone-button" class="replace" title="Throw 'em a bone!" type="" value="">
-					<span>Throw 'em a bone!</span>
-				</button>
-			</section>
-			<div class="clear"></div>	
-	    </div>
-        <iframee id="popover" style="display: none;"></iframee>
+    <div role="main">
+        <section id="today-kitchen">	
+            <figure id="large-photo-area">
+                <img id="large-photo-kit" class="photo-rotate" src="{{ worker.avatar_url }}"></img>
+            </figure>
+        </section>
+        <section id="today-bar-area">
+            <div id="rex-kitchen"></div>
+            <div id="today-text-kit">
+                <span id="today-text">TODAY'S KITCHEN CLEANOSAUR: <span class="rotate-names">{{ worker.first_name }} {{ worker.last_name }}.</span></span>
+            </div>
+        </section>
+        <section id="buttons-area">
+            <button id="nudge-button" class="replace" title="Give 'em a nudge!" type="" value="">
+                <span>Give 'em a nudge!</span>
+            </button>
+            <button id="bone-button" class="replace" title="Throw 'em a bone!" type="" value="">
+                <span>Throw 'em a bone!</span>
+            </button>
+        </section>
+        <div class="clear"></div>	
+    </div>
+    <div id="mask" style="display: none; z-index: 998; background-color: gray; opacity: 0.6; position: fixed; top: 0; left: 0; right: 0; bottom: 0;">
+    </div>
+    <div id="overlay" style="display: none; z-index: 999; position: fixed; top: 0; left: 0; width: 100%;">
+        <div id="pop-over" style="margin: 10% auto;">
+            <header>
+                <h1 class="replace">Give 'em a nudge!</h1>
+            </header>
+            <section id="pop-buttons">
+                <button id="yea-button" class="replace" title="Yea, for the kitchen is nasty." type="" value="">
+                    <span>Yea, for the kitchen is nasty.</span>
+                </button>
+                <button id="nay-button" class="replace" title="Nay, just kiddin'" type="" value="">
+                    <span>Nay, just kiddin'</span>
+                </button>
+            </section>	
+        </div>
+    </div>
+    
 {% endblock %}
