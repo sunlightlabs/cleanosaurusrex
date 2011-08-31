@@ -42,7 +42,7 @@
 						{% for a in week2_assignments %}
 						<td>
 							<figure><img src="{{ a.worker.avatar_url }}"></figure>
-							<figcaption>{{ a.worker.first_name }} {{ a.worker.last_name|truncatechars:1 }}</figcaption>
+							<figcaption>{{ a.worker.first_name }} {{ a.worker.last_name|truncatechars:1 }}. </figcaption>
 						</td>
 						{% endfor %}
 					</tr>
