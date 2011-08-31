@@ -72,12 +72,43 @@ button {  width: auto; overflow: visible; }
 .main a:link, #feature a:link, footer a:link {outline: none; color: #085069;}
 .main a:hover, #feature a:hover, footer a:hover {outline: none; color: #ffffff; background-color: #046380;}
 
+/* Shout-out to Font Squirrel for their spectacular @font-face generator! (http://www.fontsquirrel.com)*/
+
 @font-face {
     font-family: 'OstrichSansRoundedMedium';
-    src: url('../fonts/ostrich-rounded-webfont.woff') format('woff'),
-         url('../fonts/ostrich-rounded-webfont.ttf') format('truetype');
+    src: url('/static/fonts/ostrich-rounded-webfont.woff') format('woff'),
+         url('/static/fonts/ostrich-rounded-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+@font-face {
+    font-family: 'OstrichSansBlack';
+    src: url('/static/fonts/ostrich-black-webfont.woff') format('woff'),
+         url('/static/fonts/ostrich-black-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* The Ostrich Sans typeface designed by Tyler Finck and made available through The League of Moveable Type and subject to the Open Font License*/ 
+
+@font-face {
+    font-family: 'ClarendonLTStdBold';
+    src: url('clarendonltstd-bold-webfont.woff') format('woff'),
+         url('clarendonltstd-bold-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ClarendonLTStdRoman';
+    src: url('clarendonltstd-webfont.woff') format('woff'),
+         url('clarendonltstd-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
 }
 
 
@@ -97,18 +128,16 @@ ol, ul {
 
 body {
 	color: #363942;
-	background: #363942 url('../images/bg-tile.jpg') top left repeat;
+	background: #363942 url('/static/images/bg-tile.jpg') top left repeat;
 }
 
 #backdrop {
-	background: url('../images/shading-top.png') top left repeat-x;
-	background: url('../images/shading-bottom.png') bottom left repeat-x;
 	background-color: #f9f3e6;
 	width: 785px;
 	margin: 0px auto;
-	-moz-box-shadow: #363942 2px 2px 5px;
-	-webkit-box-shadow: #363942 2px 2px 5px;
-	box-shadow: #363942 2px 2px 5px;
+	-moz-box-shadow: #000000 0px 0px 20px;
+	-webkit-box-shadow: #000000 0px 0px 20px;
+	box-shadow: #000000 0px 0px 20px;
 }
 
 header {
@@ -117,13 +146,13 @@ header {
 }
 
 h1 {
-	background: url('../images/rex-logo.png') top left no-repeat;
+	background: url('/static/images/rex-logo.png') top left no-repeat;
 	width: 702px;
 	height: 98px;
 }
 
 h2 {
-	background: url('../images/tagline.png') top left no-repeat;
+	background: url('/static/images/tagline.png') top left no-repeat;
 	width: 515px;
 	height: 27px;
 }
@@ -139,7 +168,7 @@ h2 {
 }
 
 #main-page {
-	
+	width: 785px;
 }
 
 #today-kitchen {
@@ -148,21 +177,55 @@ h2 {
 }
 
 #today-main {
-	
+	width: 785px;
+	padding: 0 40px;
 }
 
 #today-inset {
-	
+	background: url('/static/images/inset-bar.jpg') top left no-repeat;
+	width: 650px;
+	height: 150px;
+ 	padding: 10px 0 8px 12px;
+	margin: 38px 0 0 0;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
 }
 
 #med-photo {
 	width: 181px;
 	height: 142px;
 	border: 1px solid #f9f3e6;
+	margin: 0 15px 0 0;
+	float: left;
 }
 
-#today-inset h1 {
-	
+h3 {
+	color: #f9f3e6;
+	font-family: 'OstrichSansBlack';
+	font-size: 30px;
+	line-height: 33px;
+	letter-spacing: 2px;
+}
+
+.counting {
+	color: #f9f3e6;
+	font-family: 'OstrichSansRoundedMedium';
+	font-size: 28px;
+	letter-spacing: 1px;
+	display: block;
+}
+
+.counting:first-of-type {
+	margin: 5px 0 0 0;
+}
+
+#rex-main {
+	background: url('/static/images/rex-main.png') center left no-repeat;
+	width: 180px;
+	height: 200px;
+	margin: -195px 63px 0 0;
+	float: right;
 }
 
 #large-photo-kit {
@@ -177,7 +240,7 @@ h2 {
 }
 
 #rex-kit {
-	background: url('../images/rex-mark1.png');
+	background: url('/static/images/rex-mark1.png');
 	width: 130px;
 	height: 147px;
 	margin: -55px 0 0 0;
@@ -186,7 +249,7 @@ h2 {
 
 #today-text-kit {
 	color: #ffffff;
-	background: url('../images/text-bar.jpg') center top no-repeat;
+	background: url('/static/images/text-bar.jpg') center top no-repeat;
 	width: 718px;
 	height: 60px;
 	margin: 0 0 0 12px;
@@ -196,6 +259,7 @@ h2 {
 	font-family: 'OstrichSansRoundedMedium';
 	font-size: 46px;
 	padding: 4px 0px 0px 130px;
+	letter-spacing: 1px;
 	display: block;
 }
 
@@ -209,7 +273,7 @@ h2 {
 }
 
 #nudge-button {
-	background: url('../images/nudge-button-lg.png') center top no-repeat;
+	background: url('/static/images/nudge-button-lg.png') center top no-repeat;
 	width: 255px;
 	height: 80px;
 	margin-right: 37px;
@@ -220,7 +284,7 @@ h2 {
 }
 
 #bone-button {
-	background: url('../images/bone-button-lg.png') center top no-repeat;
+	background: url('/static/images/bone-button-lg.png') center top no-repeat;
 	width: 255px;
 	height: 80px;
 	border: none;
@@ -228,28 +292,44 @@ h2 {
 	cursor: pointer;
 }
 
-#basic-content {
-	width: 880px;
-	margin-left: 17px;
-	padding: 15px 0 20px 15px;
+#calendar {
+	width: 550px;
+	margin: 0px auto;
+	padding: 15px 0 30px;
+	text-align: center;
+}
+
+h4 {
+	font-family: 'ClarendonLTStdBold';
+	font-size: 32px;
 }
 
 .basic-table {
+	font-family: 'ClarendonLTStdRoman';
 	width: 100%;
-	text-align: left;
+	margin: 15px 0 0 0;
 	border-collapse: separate;
-	border-spacing: 10px 0;
-}
-
-.basic-table a:link {
-	color: #006666;
 }
 
 .basic-table th {
-	color: #006666;
-	background-color: #e4e9e9;
+	background-color: #f4ead5;
+	width: 110px;
+	border: rgba(54,57,66,.25) 1px solid;
 	padding: 5px;
-	font-size: 14px;
+	font-size: 20px;
+}
+
+.basic-table td {
+	border: rgba(54,57,66,.25) 1px solid;
+	padding: 5px 25px;
+	font-size: 18px;
+}
+
+.basic-table figure {
+	width: 60px;
+	height: 60px;
+	border: #363942 1px solid;
+	margin: 5px 0;
 }
 
 footer {
