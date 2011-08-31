@@ -34,30 +34,32 @@
         <div class="clear"></div>	
     </div> 
     <div id="mask" style="position: fixed; top:0; left: 0; right: 0; bottom: 0; background-color: gray; opacity: 0.6; display: none;"></div>
-    <div id="pop-over" style="margin: 15% auto; display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;">
-        <header>
-            <h1 class="replace">Give 'em a nudge!</h1>
-        </header>
-        <section id="pop-buttons">
-            <button id="yea-button" class="replace" title="Yea, for the kitchen is nasty." type="" value="">
-                <span>Yea, for the kitchen is nasty.</span>
-            </button>
-            <button id="nay-button" class="replace" title="Nay, just kiddin'" type="" value="">
-                <span>Nay, just kiddin'</span>
-            </button>
-        </section>	
-    </div>
-    <div id="pop-over2" style="margin: 15% auto; display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;">
-        <header>
-            <h1 class="replace">Throw 'em a bone!</h1>
-        </header>
-        <section id="pop-buttons">
-            <button id="yea-button2" class="replace" title="Yea, for the kitchen is clean!" type="" value="">
-                <span>Yea, for the kitchen is clean!</span>
-            </button>
-            <button id="nay-button2" class="replace" title="Nay, just kiddin'" type="" value="">
-                <span>Nay, just kiddin'</span>
-            </button>
-        </section>	
+    <div id="overlay" style="margin: 15% auto; display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;">
+        <div id="pop-over" style="display: none; margin: auto auto;">
+            <header>
+                <h1 class="replace">Give 'em a nudge!</h1>
+            </header>
+            <section id="pop-buttons">
+                <button id="yea-button" class="replace" title="Yea, for the kitchen is nasty." type="" value="">
+                    <span>Yea, for the kitchen is nasty.</span>
+                </button>
+                <button id="nay-button" class="replace" title="Nay, just kiddin'" type="" value="">
+                    <span>Nay, just kiddin'</span>
+                </button>
+            </section>	
+        </div>
+        <div id="pop-over2" style="display: none; margin: auto auto;">
+            <header>
+                <h1 class="replace">Throw 'em a bone!</h1>
+            </header>
+            <section id="pop-buttons">
+                <button id="yea-button2" class="replace" title="Yea, for the kitchen is clean!" type="" value="">
+                    <span>Yea, for the kitchen is clean!</span>
+                </button>
+                <button id="nay-button2" class="replace" title="Nay, just kiddin'" type="" value="">
+                    <span>Nay, just kiddin'</span>
+                </button>
+            </section>	
+        </div>
     </div>
 {% endblock %}

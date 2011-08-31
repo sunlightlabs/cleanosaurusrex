@@ -38,9 +38,10 @@ ol, ul {
 	box-shadow: #998675 1px 1px 3px;
 }
 
-#pop-over2 header {
+#pop-over header, #pop-over2 header {
 	width: 503px;
 	margin: 35px auto;
+    padding: 0;
 }
 
 #pop-over h1 {
