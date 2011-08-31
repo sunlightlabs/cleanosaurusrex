@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h3>
+        {{ assignment.date|date:"l, F j Y" }}:
+        <a href="{% url worker_detail assignment.worker.pk %}">{{ assignment.worker.full_name }}</a>
+    </h3>
+
+    <img src="{{ assignment.worker.avatar_url }}" style="width: 150px;">
+
+    {% if debits %}
+
+        <p>Hall of Shame for this day in kitchen history</p>
+        <ul>
+            {% for debit in debits %}
+                {% with debit.credits.all.0.worker as worker %}
+                    <li>
+                        <a href="{% url worker_detail debit.worker.pk %}">{{ debit.worker.full_name }}</a>
+                        deferred to
+                        <a href="{% url worker_detail worker.pk %}">{{ worker.full_name }}</a>
+                    </li>
+                {% endwith %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

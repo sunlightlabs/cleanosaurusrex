@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h3>{{ worker.full_name }}</h3>
+
+    <img src="{{ worker.avatar_url }}" style="width: 150px;">
+
+    <h4>Assignments</h4>
+    <ul>
+        {% for assignment in worker.assignments.all %}
+            <li><a href="{% url assignment_detail assignment.pk %}">{{ assignment.date|date:"l, F j Y" }}</a></li>
+        {% endfor %}
+    </ul>
+
+    {% if debits %}
+
+        <p>Total deferments: {{ debits.count }}</p>
+        <ul>
+            {% for debit in debits %}
+                <li>On <a href="{% url assignment_detail debit.skipped_assignment.pk %}">{{ debit.skipped_assignment.date }}</a> <a href="{% url worker_detail debit.skipped_assignment.worker.pk %}">{{ debit.skipped_assignment.worker.full_name }}</a> picked up {{ worker.first_name }}'s slack</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>{{ worker.first_name }} is honorable and has never skipped a kitchen duty!</p>
+    {% endif %}
+
+{% endblock %}

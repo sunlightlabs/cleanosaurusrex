@@ -12,11 +12,15 @@ urlpatterns = patterns('',
     # url(r'schedule/assignments/', 'schedule.views.assignments'),
     # url(r'schedule/debits/', 'schedule.views.debits'),
     # url(r'schedule/credits/', 'schedule.views.credits'),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^assignment/(?P<assignment_id>\d+)/$', 'schedule.views.assignment_detail', name='assignment_detail'),
     url(r'^assignment/(?P<defer_code>\w{32})/defer/$', 'schedule.views.defer_assignment'),
+    url(r'^hall_of/fame/$', 'schedule.views.hall_of_fame'),
+    url(r'^hall_of/shame/$', 'schedule.views.hall_of_shame'),
     url(r'^kitchen/popover', direct_to_template, {'template': 'kitchen-popover.html'}),
     url(r'^kitchen', 'schedule.views.kitchen'),
     url(r'^schedule', 'schedule.views.current_schedule'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^worker/(?P<worker_id>\d+)/$', 'schedule.views.worker_detail', name='worker_detail'),
 )
 
 # API
