@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div id="main-page" role="main">
+
+        {% if current_assignment %}
+            {% with current_assignment.worker as worker %}
+
+                <section class="profile">
+                    <a href="{% url worker_detail worker.pk %}">
+                        <img id="med-photo" class="photo-rotate" src="{{ worker.avatar_url }}">
+                    </a>
+                    <h3>Today's Cleanosaur: <span class="name">{{ worker.first_name }} {{ worker.last_name }}</span></h3>
+                    <span class="counting">Total Bones: {{ worker.bones.count }}</span>
+                    <span class="counting">Total Nudges: {{ worker.nudges.count }}</span>
+                </section>
+                <div id="rex-main"></div>
+
+            {% endwith %}
+        {% endif %}
+
+        <section id="calendar">
+            <h4>Cleanosaur Schedule</h4>
+            <table class="basic-table" role="">
+                <thead>
+                    <tr>
+                        <th>Mon.</th>
+                        <th>Tue.</th>
+                        <th>Wed.</th>
+                        <th>Thur.</th>
+                        <th>Fri.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <figure><img src="images/sample-small.jpg"></figure>
+                            <figcaption>First L.</figcaption>
+                        </td>
+                        <td>
+                            <figure><img src="images/sample-small.jpg"></figure>
+                            <figcaption>First L.</figcaption>
+                        </td>
+                        <td>
+                            <figure><img src="images/sample-small.jpg"></figure>
+                            <figcaption>First L.</figcaption>
+                        </td>
+                        <td>
+                            <figure><img src="images/sample-small.jpg"></figure>
+                            <figcaption>First L.</figcaption>
+                        </td>
+                        <td>
+                            <figure><img src="images/sample-small.jpg"></figure>
+                            <figcaption>First L.</figcaption>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <figure><img src="images/sample-small.jpg"></figure>
+                            <figcaption>First L.</figcaption>
+                        </td>
+                        <td>
+                            <figure><img src="images/sample-small.jpg"></figure>
+                            <figcaption>First L.</figcaption>
+                        </td>
+                        <td>
+                            <figure><img src="images/sample-small.jpg"></figure>
+                            <figcaption>First L.</figcaption>
+                        </td>
+                        <td>
+                            <figure><img src="images/sample-small.jpg"></figure>
+                            <figcaption>First L.</figcaption>
+                        </td>
+                        <td>
+                            <figure><img src="images/sample-small.jpg"></figure>
+                            <figcaption>First L.</figcaption>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endblock %}

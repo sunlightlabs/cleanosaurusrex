@@ -2,27 +2,47 @@
 
 {% block content %}
 
-    <h3>
-        {{ assignment.date|date:"l, F j Y" }}:
-        <a href="{% url worker_detail assignment.worker.pk %}">{{ assignment.worker.full_name }}</a>
-    </h3>
+    <div class="content">
+        <h4>{{ assignment.date|date:"F j Y" }}</h4>
+    </div>
 
-    <img src="{{ assignment.worker.avatar_url }}" style="width: 150px;">
+    {% with assignment.worker as worker %}
+        <section class="profile">
+            <a href="{% url worker_detail worker.pk %}">
+                <img id="med-photo" class="photo-rotate" src="{{ worker.avatar_url }}">
+            </a>
+            <h3>{{ worker.full_name }}</h3>
+            <span class="counting">Total Bones: {{ worker.bones.count }}</span>
+            <span class="counting">Total Nudges: {{ worker.nudges.count }}</span>
+            <span class="counting">Total Deferments: {{ worker.debits.count }}</span>
+        </section>
+        <div id="rex-main"></div>
+    {% endwith %}
 
-    {% if debits %}
+    <div class="content">
 
-        <p>Hall of Shame for this day in kitchen history</p>
-        <ul>
-            {% for debit in debits %}
-                {% with debit.credits.all.0.worker as worker %}
-                    <li>
-                        <a href="{% url worker_detail debit.worker.pk %}">{{ debit.worker.full_name }}</a>
-                        deferred to
-                        <a href="{% url worker_detail worker.pk %}">{{ worker.full_name }}</a>
-                    </li>
-                {% endwith %}
-            {% endfor %}
-        </ul>
-    {% endif %}
+        <h4>Chain of rescheduling</h4>
+
+        {% if debits %}
+
+            <ul>
+                {% for debit in debits %}
+                    {% with debit.credits.all.0.worker as worker %}
+                        <li>
+                            <a href="{% url worker_detail debit.worker.pk %}">{{ debit.worker.full_name }}</a>
+                            deferred to
+                            <a href="{% url worker_detail worker.pk %}">{{ worker.full_name }}</a>
+                        </li>
+                    {% endwith %}
+                {% endfor %}
+            </ul>
+
+        {% else %}
+
+            <p>{{ assignment.worker.first_name }} is the original assignee.</p>
+
+        {% endif %}
+
+    </div>
 
 {% endblock %}

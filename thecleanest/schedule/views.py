@@ -8,13 +8,30 @@ from schedule.models import Assignment, Debit, Credit, NamelessWorker
 from notifications.models import Bone, Nudge
 import calendar
 
+def index(request):
+
+    current_assignment = Assignment.objects.current_assignment()
+
+    context = {
+        'current_assignment': current_assignment,
+    }
+
+    return render(request, "index.html", context)
+
 def hall_of_fame(request):
-    pass
+
+    most_boned = NamelessWorker.objects.annotate(num_bones=Count('bones')).filter(num_bones__gt=0).order_by('-num_bones')[:10]
+
+    context = {
+        'most_boned': most_boned,
+    }
+
+    return render(request, 'hall_of_fame.html', context)
 
 def hall_of_shame(request):
 
-    most_deferred = NamelessWorker.objects.annotate(num_debits=Count('debits')).filter(num_debits__gt=0).order_by('-num_debits')[:20]
-    most_nudged = NamelessWorker.objects.annotate(num_nudges=Count('nudges')).filter(num_nudges__gt=0).order_by('-num_nudges')[:20]
+    most_deferred = NamelessWorker.objects.annotate(num_debits=Count('debits')).filter(num_debits__gt=0).order_by('-num_debits')[:10]
+    most_nudged = NamelessWorker.objects.annotate(num_nudges=Count('nudges')).filter(num_nudges__gt=0).order_by('-num_nudges')[:10]
 
     context = {
         'most_deferred': most_deferred,

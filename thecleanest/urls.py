@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^kitchen', 'schedule.views.kitchen'),
     url(r'^schedule', 'schedule.views.current_schedule'),
     url(r'^worker/(?P<worker_id>\d+)/$', 'schedule.views.worker_detail', name='worker_detail'),
+    url(r'^$', 'schedule.views.index'),
 )
 
 # API

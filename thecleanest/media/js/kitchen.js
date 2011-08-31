@@ -71,6 +71,15 @@
         $("#nay-button2").click(function(){
             dismiss_bone_dialog();
         });
+
+        $('a[rel=home]').bind('click', function(ev) {
+            ev.preventDefault();
+        });
+
+        $('html').bind('touchmove', function(ev) {
+            ev.preventDefault();
+        });
+
     });
 })();
 

@@ -5,47 +5,53 @@
 <!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-		<script type="text/javascript" src="static/js/jquery-1.6.2.min.js"></script>
-		<script type="text/javascript" src="static/js/date.js"></script>
-		<script type="text/javascript" src="static/js/rex.js"></script>
+	<script type="text/javascript" src="/static/js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="/static/js/date.js"></script>
+	<script type="text/javascript" src="/static/js/rex.js"></script>
 
-  <!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+	<!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
 
-		<link rel="stylesheet" type="text/css" href="static/css/style.css">
-		<script type="text/javascript" src="static/js/modernizr-latest.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<script type="text/javascript" src="/static/js/modernizr-latest.js"></script>
 
-		<title>{% block title %}REX THE CLEANOSAUR{% endblock %}</title>
-		<meta http-equiv="content-language" content="en">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		{% block meta %}{% endblock %}
+	<title>{% block title %}REX THE CLEANOSAUR{% endblock %}</title>
+	<meta http-equiv="content-language" content="en">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	{% block meta %}{% endblock %}
 
-		<link rel="shortcut icon" href="/favicon.ico">
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-		{% block head_prologue %}
-		{% endblock %}
-	</head>
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+	{% block head_prologue %}
+	{% endblock %}
+</head>
 
-	<body>
-		<div id="backdrop">
-			<header>
-				<h1 class="replace" title="Rex the Cleanosaur">Rex the Cleanosaur</h1>
-				<section id="feature" role="banner">
+<body>
+
+	<div id="backdrop">
+
+		<a href="/" rel="home">
+			<header role="banner">
+				<hgroup>
+					<h1 class="replace" title="Rex the Cleanosaur">Rex the Cleanosaur</h1>
 					<h2 class="replace">keepin' it clean since 2011</h2>
-				</section>
+				</hgroup>
 			</header>
+		</a>
 
-			{% block content %}
-			{% endblock %}
-			<footer>
-				<section class="footer-bar">
-				</section>
-			</footer>
-		</div>
-	</body>
+		{% block content %}{% endblock %}
+
+		<footer>
+			<section class="footer-bar">
+			</section>
+		</footer>
+
+	</div>
+
+</body>
 </html>
 

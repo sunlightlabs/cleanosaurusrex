@@ -2,27 +2,42 @@
 
 {% block content %}
 
-    <h3>{{ worker.full_name }}</h3>
+    <section class="profile">
+        <a href="{% url worker_detail worker.pk %}">
+            <img id="med-photo" class="photo-rotate" src="{{ worker.avatar_url }}">
+        </a>
+        <h3>{{ worker.full_name }}</h3>
+        <span class="counting">Total Bones: {{ worker.bones.count }}</span>
+        <span class="counting">Total Nudges: {{ worker.nudges.count }}</span>
+        <span class="counting">Total Deferments: {{ debits.count }}</span>
+    </section>
+    <div id="rex-main"></div>
 
-    <img src="{{ worker.avatar_url }}" style="width: 150px;">
+    <div class="content">
 
-    <h4>Assignments</h4>
-    <ul>
-        {% for assignment in worker.assignments.all %}
-            <li><a href="{% url assignment_detail assignment.pk %}">{{ assignment.date|date:"l, F j Y" }}</a></li>
-        {% endfor %}
-    </ul>
+        <h4>Assignments</h4>
 
-    {% if debits %}
+        {% if worker.assignments.count %}
+            <ul>
+                {% for assignment in worker.assignments.all %}
+                    <li><a href="{% url assignment_detail assignment.pk %}">{{ assignment.date|date:"l, F j Y" }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ worker.first_name }} has no assignments.</p>
+        {% endif %}
 
-        <p>Total deferments: {{ debits.count }}</p>
-        <ul>
-            {% for debit in debits %}
-                <li>On <a href="{% url assignment_detail debit.skipped_assignment.pk %}">{{ debit.skipped_assignment.date }}</a> <a href="{% url worker_detail debit.skipped_assignment.worker.pk %}">{{ debit.skipped_assignment.worker.full_name }}</a> picked up {{ worker.first_name }}'s slack</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>{{ worker.first_name }} is honorable and has never skipped a kitchen duty!</p>
-    {% endif %}
+        <h4>History of deferring</h4>
+
+        {% if debits %}
+            <ul>
+                {% for debit in debits %}
+                    <li>On <a href="{% url assignment_detail debit.skipped_assignment.pk %}">{{ debit.skipped_assignment.date }}</a> <a href="{% url worker_detail debit.skipped_assignment.worker.pk %}">{{ debit.skipped_assignment.worker.full_name }}</a> picked up {{ worker.first_name }}'s slack</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ worker.first_name }} is honorable and has never skipped a kitchen duty!</p>
+        {% endif %}
+    </div>
 
 {% endblock %}

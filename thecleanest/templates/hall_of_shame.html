@@ -2,10 +2,26 @@
 
 {% block content %}
 
-    <h3>{{ worker.full_name }}</h3>
+    <div class="content">
 
-    {{ most_deferred }}
+        <h4>Hall of Shame</h4>
 
-    {{ most_nudged }}
+        <h5>Most deferred</h5>
+
+        <ol>
+            {% for worker in most_deferred %}
+                <li><a href="{% url worker_detail worker.pk %}">{{ worker.full_name }}</a> <span class="count">{{ worker.num_debits }}</span></li>
+            {% endfor %}
+        </ol>
+
+        <h5>Most nudges</h5>
+
+        <ol>
+            {% for worker in most_nudged %}
+                <li><a href="{% url worker_detail worker.pk %}">{{ worker.full_name }}</a> <span class="count">{{ worker.num_nudges }}</span></li>
+            {% endfor %}
+        </ol>
+
+    </h4>
 
 {% endblock %}

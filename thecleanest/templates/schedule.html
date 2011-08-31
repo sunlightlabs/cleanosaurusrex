@@ -3,10 +3,10 @@
 
 {% block content %}
 	<div id="main-page" role="main">
-		<section id="today-main">	
+		<section id="today-main">
 			<section id="today-inset">
 				<figure id="main-photo">
-					<img id="med-photo" class="photo-rotate" src="{{ current_assignment.worker.avatar_url }}"></img>
+					<img id="med-photo" class="photo-rotate" src="{{ current_assignment.worker.avatar_url }}">
 				</figure>
 				<h3>Today's Kitchen</h3>
 				<h3>Cleanosaur: {{ current_assignment.worker.first_name }} {{ current_assignment.worker.last_name|truncatechars:1 }}. </h3>
@@ -48,7 +48,7 @@
 					</tr>
 				</tbody>
 			</table>
-		</section>	
+		</section>
 	</div>
 
 {% endblock %}

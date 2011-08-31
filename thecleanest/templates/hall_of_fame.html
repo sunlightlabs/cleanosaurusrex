@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="content">
+
+        <h4>Hall of Fame</h4>
+
+        <h5>Most bones</h5>
+
+        <ol>
+            {% for worker in most_boned %}
+                <li><a href="{% url worker_detail worker.pk %}">{{ worker.full_name }}</a> <span class="count">{{ worker.num_bones }}</span></li>
+            {% endfor %}
+        </ol>
+
+    </h4>
+
+{% endblock %}
