@@ -1,8 +1,12 @@
 {% extends "base.html" %}
-{% load truncatechars %}
 
 {% block title %}
    REX - KITCHEN DUTY
+{% endblock %}
+
+{% block meta %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 {% endblock %}
 
 {% block head_prologue %}
@@ -10,9 +14,9 @@
     <link rel="stylesheet" type="text/css" href="static/css/popover.css">
 {% endblock %}
 
-{% block content %}    
+{% block content %}
     <div id="kitchen" role="main">
-        <section id="today-kitchen">	
+        <section id="today-kitchen">
             <figure id="large-photo-area">
                 <img id="large-photo-kit" src="{{ worker.avatar_url }}"></img>
             </figure>
@@ -20,7 +24,7 @@
         <section id="today-bar-area">
             <div id="rex-kit"></div>
             <div id="today-text-kit">
-                <span id="today-text">TODAY'S KITCHEN CLEANOSAUR: <span>{{ worker.first_name }} {{ worker.last_name|truncatechars:1 }}. </span></span>
+                <span id="today-text">TODAY'S CLEANOSAUR: <span>{{ worker.first_name }} {{ worker.last_name|slice:"1" }}. </span></span>
             </div>
             <div class="clear">
         </section>
@@ -32,8 +36,8 @@
                 <span>Throw 'em a bone!</span>
             </button>
         </section>
-        <div class="clear"></div>	
-    </div> 
+        <div class="clear"></div>
+    </div>
     <div id="mask" style="position: fixed; top:0; left: 0; right: 0; bottom: 0; background-color: gray; opacity: 0.6; display: none;"></div>
     <div id="overlay" style="margin: 15% auto; display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;">
         <div id="pop-over" style="display: none; margin: auto auto;">
@@ -47,7 +51,7 @@
                 <button id="nay-button" class="replace" title="Nay, just kiddin'" type="" value="">
                     <span>Nay, just kiddin'</span>
                 </button>
-            </section>	
+            </section>
         </div>
         <div id="pop-over2" style="display: none; margin: auto auto;">
             <header>
@@ -60,7 +64,7 @@
                 <button id="nay-button2" class="replace" title="Nay, just kiddin'" type="" value="">
                     <span>Nay, just kiddin'</span>
                 </button>
-            </section>	
+            </section>
         </div>
     </div>
 {% endblock %}

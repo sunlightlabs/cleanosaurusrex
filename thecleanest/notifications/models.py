@@ -25,8 +25,7 @@ class Nudge(models.Model):
                               else nudges[0].timestamp)
         since = datetime.now() - epoch
 
-        if since >= NUDGE_GRACE_PERIOD:
-            email.nudge_notify(self)
+        email.nudge_notify(self)
 
 
 class Bone(models.Model):
