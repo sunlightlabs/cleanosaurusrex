@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load truncatechars %}
 
 {% block title %}
    REX - KITCHEN DUTY
@@ -19,7 +20,7 @@
         <section id="today-bar-area">
             <div id="rex-kit"></div>
             <div id="today-text-kit">
-                <span id="today-text">TODAY'S KITCHEN CLEANOSAUR: <span>CHRIS R.</span></span>
+                <span id="today-text">TODAY'S KITCHEN CLEANOSAUR: <span>{{ worker.first_name }} {{ worker.last_name|truncatechars:1 }}. </span></span>
             </div>
             <div class="clear">
         </section>

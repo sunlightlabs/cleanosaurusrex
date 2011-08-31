@@ -1,5 +1,54 @@
 {% extends "base.html" %}
+{% load truncatechars %}
 
 {% block content %}
+	<div id="main-page" role="main">
+		<section id="today-main">	
+			<section id="today-inset">
+				<figure id="main-photo">
+					<img id="med-photo" class="photo-rotate" src="{{ current_assignment.worker.avatar_url }}"></img>
+				</figure>
+				<h3>Today's Kitchen</h3>
+				<h3>Cleanosaur: {{ current_assignment.worker.first_name }} {{ current_assignment.worker.last_name|truncatechars:1 }}. </h3>
+				<span class="counting">Bones: {{ bone_count }}</span>
+				<span class="counting">Nudges: {{ nudge_count }}</span>
+				<div class="clear"></div>
+			</section>
+			<div id="rex-main"></div>
+			<div class="clear"></div>
+		</section>
+		<section id="calendar">
+			<h4>Cleanosaur Schedule</h4>
+			<table class="basic-table" role="">
+				<thead>
+					<tr>
+						<th>Mon.</th>
+						<th>Tue.</th>
+						<th>Wed.</th>
+						<th>Thur.</th>
+						<th>Fri.</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						{% for a in week1_assignments %}
+						<td>
+							<figure><img src="{{ a.worker.avatar_url }}"></figure>
+							<figcaption>{{ a.worker.first_name }} {{ a.worker.last_name|truncatechars:1 }}. </figcaption>
+						</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						{% for a in week2_assignments %}
+						<td>
+							<figure><img src="{{ a.worker.avatar_url }}"></figure>
+							<figcaption>{{ a.worker.first_name }} {{ a.worker.last_name|truncatechars:1 }}</figcaption>
+						</td>
+						{% endfor %}
+					</tr>
+				</tbody>
+			</table>
+		</section>	
+	</div>
 
 {% endblock %}
