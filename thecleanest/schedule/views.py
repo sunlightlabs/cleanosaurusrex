@@ -1,10 +1,12 @@
 
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from django.db.models import Count
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.core.serializers import serialize, deserialize
 from schedule.models import Assignment, Debit, Credit, NamelessWorker
+from notifications.models import Bone, Nudge
+import calendar
 
 def hall_of_fame(request):
     pass
@@ -62,7 +64,28 @@ def worker_detail(request, worker_id):
 def current_schedule(request):
     """JSON representation of the current schedule."""
     # Get current and future assignments
-    return render_to_response('schedule.html')
+    assignment = Assignment.objects.current_assignment()
+    today = date.today()
+    today_weekday = calendar.weekday(today.year, today.month, today.day)
+    today_range = (datetime(today.year, today.month, today.day, 0, 0, 0),
+                   datetime(today.year, today.month, today.day, 23, 59, 59))
+    monday = date.today() - timedelta(days=today_weekday)
+    assignments = Assignment.objects.filter(date__gte=monday).order_by('date')[:10]
+    week1_assignments = assignments[0:5]
+    week2_assignments = assignments[5:10]
+    bone_count = Bone.objects.filter(timestamp__range=today_range).count()
+    nudge_count = Nudge.objects.filter(timestamp__range=today_range).count()
+
+    return render_to_response('schedule.html', {
+                                  'today': str(today),
+                                  'monday': str(monday),
+                                  'assignments': assignments,
+                                  'week1_assignments': week1_assignments,
+                                  'week2_assignments': week2_assignments,
+                                  'current_assignment': assignment,
+                                  'bone_count': bone_count,
+                                  'nudge_count': nudge_count
+                              })
 
 def kitchen(request):
     assignment = Assignment.objects.current_assignment()

@@ -72,12 +72,43 @@ button {  width: auto; overflow: visible; }
 .main a:link, #feature a:link, footer a:link {outline: none; color: #085069;}
 .main a:hover, #feature a:hover, footer a:hover {outline: none; color: #ffffff; background-color: #046380;}
 
+/* Shout-out to Font Squirrel for their spectacular @font-face generator! (http://www.fontsquirrel.com)*/
+
 @font-face {
     font-family: 'OstrichSansRoundedMedium';
     src: url('/static/fonts/ostrich-rounded-webfont.woff') format('woff'),
          url('/static/fonts/ostrich-rounded-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+@font-face {
+    font-family: 'OstrichSansBlack';
+    src: url('/static/fonts/ostrich-black-webfont.woff') format('woff'),
+         url('/static/fonts/ostrich-black-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* The Ostrich Sans typeface designed by Tyler Finck and made available through The League of Moveable Type and subject to the Open Font License*/ 
+
+@font-face {
+    font-family: 'ClarendonLTStdBold';
+    src: url('/static/fonts/clarendonltstd-bold-webfont.woff') format('woff'),
+         url('/static/fonts/clarendonltstd-bold-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ClarendonLTStdRoman';
+    src: url('/static/fonts/clarendonltstd-webfont.woff') format('woff'),
+         url('/static/fonts/clarendonltstd-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
 }
 
 
@@ -101,14 +132,12 @@ body {
 }
 
 #backdrop {
-	background: url('/static/images/shading-top.png') top left repeat-x;
-	background: url('/static/images/shading-bottom.png') bottom left repeat-x;
 	background-color: #f9f3e6;
 	width: 785px;
 	margin: 0px auto;
-	-moz-box-shadow: #363942 2px 2px 5px;
-	-webkit-box-shadow: #363942 2px 2px 5px;
-	box-shadow: #363942 2px 2px 5px;
+	-moz-box-shadow: #000000 0px 0px 20px;
+	-webkit-box-shadow: #000000 0px 0px 20px;
+	box-shadow: #000000 0px 0px 20px;
 }
 
 header {
@@ -139,35 +168,70 @@ h2 {
 }
 
 #main-page {
-	
+	width: 785px;
 }
 
 #today-kitchen {
-	width: 480px;
-	padding: 0px 153px 0px 152px;
+	width: 380px;
+	padding: 0px 203px 0px 202px;
 }
 
 #today-main {
-	
+	width: 785px;
+	padding: 0 40px;
 }
 
 #today-inset {
-	
+	background: url('/static/images/inset-bar.jpg') top left no-repeat;
+	width: 650px;
+	height: 150px;
+ 	padding: 10px 0 8px 12px;
+	margin: 38px 0 0 0;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
 }
 
 #med-photo {
-	width: 181px;
+	width: 142px;
 	height: 142px;
 	border: 1px solid #f9f3e6;
+	margin: 0 15px 0 0;
+	float: left;
 }
 
-#today-inset h1 {
-	
+h3 {
+	color: #f9f3e6;
+	font-family: 'OstrichSansBlack';
+	font-size: 30px;
+	line-height: 33px;
+	letter-spacing: 2px;
+}
+
+.counting {
+	color: #f9f3e6;
+	font-family: 'OstrichSansRoundedMedium';
+	font-size: 28px;
+	letter-spacing: 1px;
+	display: block;
+}
+
+.counting:first-of-type {
+	margin: 5px 0 0 0;
+}
+
+#rex-main {
+	background: url('/static/images/rex-main.png') center left no-repeat;
+	width: 180px;
+	height: 200px;
+	margin: -195px 63px 0 0;
+	float: right;
 }
 
 #large-photo-kit {
-	width: 480px;
-	height: 350px;
+	width: 380px;
+	height: 380px;
+    border: 1px solid #363636;
 }
 
 #today-bar-area {
@@ -196,6 +260,7 @@ h2 {
 	font-family: 'OstrichSansRoundedMedium';
 	font-size: 46px;
 	padding: 4px 0px 0px 130px;
+	letter-spacing: 1px;
 	display: block;
 }
 
@@ -228,28 +293,49 @@ h2 {
 	cursor: pointer;
 }
 
-#basic-content {
-	width: 880px;
-	margin-left: 17px;
-	padding: 15px 0 20px 15px;
+#calendar {
+	width: 600px;
+	margin: 0px auto;
+	padding: 15px 0 30px 0;
+	text-align: center;
+}
+
+#calendar figure img {
+    width: 60px;
+    height: 60px;
+}
+
+h4 {
+	font-family: 'ClarendonLTStdBold';
+	font-size: 32px;
 }
 
 .basic-table {
+	font-family: 'ClarendonLTStdRoman';
 	width: 100%;
-	text-align: left;
+	margin: 15px 0 0 0;
 	border-collapse: separate;
-	border-spacing: 10px 0;
-}
-
-.basic-table a:link {
-	color: #006666;
 }
 
 .basic-table th {
-	color: #006666;
-	background-color: #e4e9e9;
+	background-color: #f4ead5;
+	width: 110px;
+	border: rgba(54,57,66,.25) 1px solid;
 	padding: 5px;
-	font-size: 14px;
+	font-size: 20px;
+}
+
+.basic-table td {
+	border: rgba(54,57,66,.25) 1px solid;
+	padding: 5px 25px;
+	font-size: 15px;
+}
+
+.basic-table figure {
+	width: 60px;
+	height: 60px;
+	border: #363942 1px solid;
+	margin: 5px 0;
 }
 
 footer {
