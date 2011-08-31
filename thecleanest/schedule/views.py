@@ -12,7 +12,26 @@ def index(request):
 
     current_assignment = Assignment.objects.current_assignment()
 
+    today = date.today()
+    today_weekday = calendar.weekday(today.year, today.month, today.day)
+    today_range = (datetime(today.year, today.month, today.day, 0, 0, 0),
+                   datetime(today.year, today.month, today.day, 23, 59, 59))
+    monday = date.today() - timedelta(days=today_weekday)
+    assignments = Assignment.objects.filter(date__gte=monday).order_by('date')[:10]
+    week1_assignments = assignments[0:5]
+    week2_assignments = assignments[5:10]
+    bone_count = Bone.objects.filter(timestamp__range=today_range).count()
+    nudge_count = Nudge.objects.filter(timestamp__range=today_range).count()
+
     context = {
+        'today': str(today),
+        'today_date': today,
+        'monday': str(monday),
+        'assignments': assignments,
+        'week1_assignments': week1_assignments,
+        'week2_assignments': week2_assignments,
+        'bone_count': bone_count,
+        'nudge_count': nudge_count,
         'current_assignment': current_assignment,
     }
 

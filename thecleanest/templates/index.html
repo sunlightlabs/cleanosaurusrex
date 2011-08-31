@@ -34,51 +34,33 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
-                            <figure><img src="images/sample-small.jpg"></figure>
-                            <figcaption>First L.</figcaption>
+                        {% for a in week1_assignments %}
+                        <td {% if a.date == today_date %}class="today"{% endif %}>
+                            <a href="{% url assignment_detail a.pk %}">
+                                <figure><img src="{{ a.worker.avatar_url }}"></figure>
+                            </a>
+                            <figcaption>{{ a.worker.first_name }}</figcaption>
                         </td>
-                        <td>
-                            <figure><img src="images/sample-small.jpg"></figure>
-                            <figcaption>First L.</figcaption>
-                        </td>
-                        <td>
-                            <figure><img src="images/sample-small.jpg"></figure>
-                            <figcaption>First L.</figcaption>
-                        </td>
-                        <td>
-                            <figure><img src="images/sample-small.jpg"></figure>
-                            <figcaption>First L.</figcaption>
-                        </td>
-                        <td>
-                            <figure><img src="images/sample-small.jpg"></figure>
-                            <figcaption>First L.</figcaption>
-                        </td>
+                        {% endfor %}
                     </tr>
                     <tr>
+                        {% for a in week2_assignments %}
                         <td>
-                            <figure><img src="images/sample-small.jpg"></figure>
-                            <figcaption>First L.</figcaption>
+                            <a href="{% url assignment_detail a.pk %}">
+                                <figure><img src="{{ a.worker.avatar_url }}"></figure>
+                            </a>
+                            <figcaption>{{ a.worker.first_name }}</figcaption>
                         </td>
-                        <td>
-                            <figure><img src="images/sample-small.jpg"></figure>
-                            <figcaption>First L.</figcaption>
-                        </td>
-                        <td>
-                            <figure><img src="images/sample-small.jpg"></figure>
-                            <figcaption>First L.</figcaption>
-                        </td>
-                        <td>
-                            <figure><img src="images/sample-small.jpg"></figure>
-                            <figcaption>First L.</figcaption>
-                        </td>
-                        <td>
-                            <figure><img src="images/sample-small.jpg"></figure>
-                            <figcaption>First L.</figcaption>
-                        </td>
+                        {% endfor %}
                     </tr>
                 </tbody>
             </table>
         </section>
+
+
+        <p class="hall-links">
+            <a href="/halloffame/">Hall of Fame</a> <a href="/hallofshame/">Hall of Shame</a>
+        </p>
+
     </div>
 {% endblock %}

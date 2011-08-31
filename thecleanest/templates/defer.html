@@ -2,19 +2,23 @@
 
 {% block content %}
 
-    {% if assignment %}
+    <div class="content">
 
-        <p>Hey {{ assignment.worker.first_name }}, you sure you want to reschedule your kitchen duty on {{ assignment.date|date:"l, F j" }}?</p>
+        {% if assignment %}
 
-        <form action="." method="post">
-            {% csrf_token %}
-            <input type="submit" value="Reschedule">
-        </form>
+            <p>Hey {{ assignment.worker.first_name }}, you sure you want to reschedule your kitchen duty on {{ assignment.date|date:"l, F j" }}?</p>
 
-    {% else %}
+            <form action="." method="post">
+                {% csrf_token %}
+                <input type="submit" value="Reschedule">
+            </form>
 
-        <p>This kitchen duty has already been rescheduled (or never existed!).</p>
+        {% else %}
 
-    {% endif %}
+            <p>This kitchen duty has already been rescheduled (or never existed!).</p>
+
+        {% endif %}
+
+    </div>
 
 {% endblock %}
