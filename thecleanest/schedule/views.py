@@ -1,10 +1,12 @@
 
 from datetime import datetime, date, timedelta
+from itertools import islice
 from django.db.models import Count
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.core.serializers import serialize, deserialize
 from schedule.models import Assignment, Debit, Credit, NamelessWorker
+from schedule.workdays import date_range, weekdays, is_workday
 from notifications.models import Bone, Nudge
 import calendar
 
@@ -79,7 +81,6 @@ def worker_detail(request, worker_id):
 
 
 def current_schedule(request):
-    """JSON representation of the current schedule."""
     # Get current and future assignments
     assignment = Assignment.objects.current_assignment()
     today = date.today()
@@ -87,9 +88,16 @@ def current_schedule(request):
     today_range = (datetime(today.year, today.month, today.day, 0, 0, 0),
                    datetime(today.year, today.month, today.day, 23, 59, 59))
     monday = date.today() - timedelta(days=today_weekday)
-    assignments = Assignment.objects.filter(date__gte=monday).order_by('date')[:10]
-    week1_assignments = assignments[0:5]
-    week2_assignments = assignments[5:10]
+    def assignment_for_day(day):
+        try:
+            return Assignment.objects.get(date=day)
+        except Assignment.DoesNotExist:
+            return None
+    def day_info(day):
+        return { 'assignment': assignment_for_day(day),
+                 'is_workday': 1 if is_workday(day) else 0 }
+    days = map(day_info, list(weekdays(date_range(monday, monday + timedelta(days=12)))))
+    weeks = [days[x:x+5] for x in range(0, len(days), 5)]
     bone_count = Bone.objects.filter(timestamp__range=today_range).count()
     nudge_count = Nudge.objects.filter(timestamp__range=today_range).count()
 
@@ -97,10 +105,11 @@ def current_schedule(request):
                                   'today': str(today),
                                   'monday': str(monday),
                                   'assignments': assignments,
-                                  'week1_assignments': week1_assignments,
-                                  'week2_assignments': week2_assignments,
+                                  'weeks': weeks,
                                   'current_assignment': assignment,
                                   'bone_count': bone_count,
+                                  'week1': range(0, 5),
+                                  'week2': range(5, 10),
                                   'nudge_count': nudge_count
                               })
 
