@@ -30,6 +30,10 @@ def date_range(start_date, end_date):
     for i in xrange(days + 1):
         yield start_date + datetime.timedelta(i)
 
+def weekdays(date_range):
+    for dt in date_range:
+        if 0 <= dt.weekday() < 5:
+            yield dt
 
 def workdays(start_date):
     current = start_date

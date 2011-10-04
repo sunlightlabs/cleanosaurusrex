@@ -30,22 +30,24 @@
 					</tr>
 				</thead>
 				<tbody>
+					{% for week in weeks %}
 					<tr>
-						{% for a in week1_assignments %}
+						{% for day in week %}
 						<td>
-							<figure><img src="{{ a.worker.avatar_url }}"></figure>
-							<figcaption>{{ a.worker.first_name }} {{ a.worker.last_name|truncatechars:1 }}. </figcaption>
+							{% if day.assignment %}
+							<figure><img src="{{ day.assignment.worker.avatar_url }}"></figure>
+							<figcaption>{{ day.assignment.worker.first_name }} {{ day.assignment.worker.last_name|truncatechars:1 }}. </figcaption>
+							{% else %}
+							{% if not day.is_workday %}
+							Vacation
+							{% else %}
+							No one assigned
+							{% endif %}
+							{% endif %}
 						</td>
 						{% endfor %}
 					</tr>
-					<tr>
-						{% for a in week2_assignments %}
-						<td>
-							<figure><img src="{{ a.worker.avatar_url }}"></figure>
-							<figcaption>{{ a.worker.first_name }} {{ a.worker.last_name|truncatechars:1 }}. </figcaption>
-						</td>
-						{% endfor %}
-					</tr>
+					{% endfor %}
 				</tbody>
 			</table>
 		</section>
