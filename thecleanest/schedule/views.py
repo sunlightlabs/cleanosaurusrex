@@ -39,6 +39,16 @@ def index(request):
 
     return render(request, "index.html", context)
 
+def full_schedule(request):
+    
+    today = date.today()
+    last_week = today - timedelta(days=7)
+    assignments = Assignment.objects.filter(date__gte=last_week).order_by('date')
+    
+    context = {'assignments': assignments, 'today': today}
+    
+    return render(request, "schedule_full.html", context)
+
 def hall_of_fame(request):
 
     most_boned = NamelessWorker.objects.annotate(num_bones=Count('bones')).filter(num_bones__gt=0).order_by('-num_bones')[:10]

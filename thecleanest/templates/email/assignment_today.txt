@@ -1,0 +1,32 @@
+Hey {{ worker.first_name }},
+
+Today is your kitchen duty!
+
+                                             ____
+  ___                                      .-~. /_"-._
+ `-._~-.                                  / /_ "~o\  :Y
+     \  \                                / : \~x.  ` ')
+      ]  Y                              /  |  Y< ~-.__j
+     /   !                        _.--~T : l  l<  /.-~
+    /   /                 ____.--~ .   ` l /~\ \<|Y
+   /   /             .-~~"        /| .    ',-~\ \L|
+  /   /             /     .^   \ Y~Y \.^>/l_   "--'
+ /   Y           .-"(  .  l__  j_j l_/ /~_.-~    .
+Y    l          /    \  )    ~~~." / `/"~ / \.__/l_
+|     \     _.-"      ~-{__     l  :  l._Z~-.___.--~
+|      ~---~           /   ~~"---\_  ' __[>
+l  .                _.^   ___     _>-y~
+ \  \     .      .-~   .-~   ~>--"  /
+  \  ~---"            /     ./  _.-'
+   "-.,_____.,_  _.--~\     _.-~
+               ~~     (   _}  
+                       `. ~(
+                         )  \
+                        /,`--'~\--'
+
+Click the following link if you are unable to serve your noble duty today:
+
+http://rex.sunlightfoundation.com/assignment/{{ assignment.defer_code }}/defer/
+
+Sincerely yours,
+Cleanosaurus Rex

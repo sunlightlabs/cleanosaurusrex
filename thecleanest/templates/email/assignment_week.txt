@@ -1,6 +1,6 @@
 Hey {{ worker.first_name }},
 
-You've been assigned kitchen duty on {{ assignment.date|date:"l, F j" }}.
+Just a reminder that you've been assigned kitchen duty on {{ assignment.date|date:"l, F j" }}.
 
 Click the following link if you are unable to serve your noble duty on this day:
 

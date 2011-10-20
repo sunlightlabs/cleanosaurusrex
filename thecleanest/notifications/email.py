@@ -18,6 +18,42 @@ def assignment_notify(assignment):
         from_email=settings.EMAIL_SENDER,
         to=(settings.EMAIL_RECIPIENT or assignment.worker.email,),
     )
+    #msg.send()
+
+def assignment_today(assignment):
+    
+    if assignment.worker.email is None:
+        return
+
+    data = {
+        'assignment': assignment,
+        'worker': assignment.worker,
+    }
+
+    msg = EmailMessage(
+        subject="[Cleanosaurus Rex] Rawr-minder! You've got kitchen duty TODAY!!!",
+        body=render_to_string('email/assignment_today.txt', data),
+        from_email=settings.EMAIL_SENDER,
+        to=(settings.EMAIL_RECIPIENT or assignment.worker.email,),
+    )
+    msg.send()
+    
+def assignment_next_week(assignment):
+    
+    if assignment.worker.email is None:
+        return
+
+    data = {
+        'assignment': assignment,
+        'worker': assignment.worker,
+    }
+
+    msg = EmailMessage(
+        subject="[Cleanosaurus Rex] Rawr-minder! You've got kitchen duty next week!!!",
+        body=render_to_string('email/assignment_week.txt', data),
+        from_email=settings.EMAIL_SENDER,
+        to=(settings.EMAIL_RECIPIENT or assignment.worker.email,),
+    )
     msg.send()
 
 def defer_notify(debit):
@@ -40,7 +76,7 @@ def defer_notify(debit):
         from_email=settings.EMAIL_SENDER,
         to=(settings.EMAIL_RECIPIENT or debit.worker.email,),
     )
-    msg.send()
+    #msg.send()
 
     # message to the person that was swapped in
 
@@ -50,7 +86,7 @@ def defer_notify(debit):
         from_email=settings.EMAIL_SENDER,
         to=(settings.EMAIL_RECIPIENT or debit.skipped_assignment.worker.email,),
     )
-    msg.send()
+    #msg.send()
 
 def nudge_notify(nudge):
 
@@ -65,7 +101,7 @@ def nudge_notify(nudge):
         from_email=settings.EMAIL_SENDER,
         to=(settings.EMAIL_RECIPIENT or nudge.target.email,),
     )
-    msg.send()
+    #msg.send()
 
 
 def bone_notify(bone):
@@ -81,4 +117,4 @@ def bone_notify(bone):
         from_email=settings.EMAIL_SENDER,
         to=(settings.EMAIL_RECIPIENT or bone.target.email,),
     )
-    msg.send()
+    #msg.send()

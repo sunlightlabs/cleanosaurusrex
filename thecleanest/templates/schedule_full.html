@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="content">
+
+        <h4>Full schedule</h4>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Nameless Worker</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assignment in assignments %}
+                    <tr>
+                        <td>
+                            {% if assignment.date == today %}
+                                today
+                            {% else %}
+                                {{ assignment.date }}
+                            {% endif %}
+                        </td>
+                        <td>{{ assignment.worker }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+
+    </div>
+
+{% endblock %}
