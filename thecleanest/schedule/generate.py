@@ -5,24 +5,23 @@
        Otherwise if the worker as a coupon pending, schedule the next worker in the cycle, and mark the coupon as used.
        Rinse and repeat.
 """
-
+from django.conf import settings
 from datetime import date, timedelta
 from thecleanest.notifications import email
 from thecleanest.schedule.models import NamelessWorker, Assignment, Debit, Credit, Coupon
 from thecleanest.schedule.workeriter import AlphaWorkerIter
 from thecleanest.schedule.workdays import workdays
 from itertools import islice, izip, takewhile
-from settings import SCHED_HORIZON
 
 def bootstrap_schedule():
     start_date = date.today()
-    stop_date = date.today() + timedelta(days=SCHED_HORIZON)
+    stop_date = date.today() + timedelta(days=settings.SCHED_HORIZON)
     days_to_schedule = list(takewhile(lambda d: d < stop_date,
                                       workdays(start_date)))
 
     future = izip(days_to_schedule,
                   AlphaWorkerIter())
-    for (day, worker) in islice(future, 0, SCHED_HORIZON):
+    for (day, worker) in islice(future, 0, settings.SCHED_HORIZON):
         print "Bootstrapping %s" % (str(day), )
         a = Assignment(worker=worker, date=day)
         a.save()
@@ -41,7 +40,7 @@ def generate_schedule():
     workers = AlphaWorkerIter(after=start_worker)
 
     start_date = latest_assignment.date + timedelta(days=1)
-    stop_date = date.today() + timedelta(days=SCHED_HORIZON)
+    stop_date = date.today() + timedelta(days=settings.SCHED_HORIZON)
     print "Schedule horizon: %s" % str(stop_date)
     if start_date >= stop_date:
         print "No need to schedule anything."
