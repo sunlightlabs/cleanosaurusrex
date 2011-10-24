@@ -4,7 +4,7 @@ You've been assigned kitchen duty on {{ date|date:"l, F j" }}. Don't worry, {{ s
 
 Click the following link if you are unable to serve your noble duty on this day:
 
-http://localhost:8000/assignment/{{ assignment.defer_code }}/defer/
+http://rex.sunlightfoundation.com/assignment/{{ assignment.defer_code }}/defer/
 
 Sincerely yours,
 Cleanosaurus Rex
