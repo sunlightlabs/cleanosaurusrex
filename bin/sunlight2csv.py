@@ -1,5 +1,6 @@
 import csv
 import json
+import sys
 import urllib2
 
 AVATAR_URL = "http://assets.sunlightfoundation.com/images/blog/avatars/300/300x300_%s.jpg"
@@ -7,7 +8,7 @@ AVATAR_URL = "http://assets.sunlightfoundation.com/images/blog/avatars/300/300x3
 res = urllib2.urlopen('http://sunlightfoundation.com/people/?json')
 staff = json.load(res)
 
-writer = csv.writer(open('../data/workers.csv', 'w'))
+writer = csv.writer(sys.stdout)
 writer.writerow(('first_name','last_name','email','avatar_url'))
 
 for role in ('founders', 'general_staff'):
