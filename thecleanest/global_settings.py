@@ -72,7 +72,7 @@ POSTMARK_API_KEY = "14da7853-3560-4179-a5a8-d91f380796b4"
 API_LIMIT_PER_PAGE = 100
 
 NUDGE_GRACE_PERIOD = timedelta(minutes=30)
-SCHED_HORIZON = 21
+SCHED_HORIZON = 31
 EXCUSED = [
     'jturk@sunlightfoundation.com',
 ]
