@@ -1,5 +1,6 @@
 *.db
 *.pyc
+data/workers.csv
 settings.py
 static/**/*.css
 static/**/*.js
