@@ -68,8 +68,10 @@ EMAIL_RECIPIENT = "jcarbaugh@sunlightfoundation.com" # None to not override
 
 POSTMARK_API_KEY = "14da7853-3560-4179-a5a8-d91f380796b4"
 
-NUDGE_GRACE_PERIOD = timedelta(hours=1, minutes=30)
-
 API_LIMIT_PER_PAGE = 100
 
+NUDGE_GRACE_PERIOD = timedelta(minutes=30)
 SCHED_HORIZON = 34
+EXCUSED = [
+    'jturk@sunlightfoundation.com',
+]
