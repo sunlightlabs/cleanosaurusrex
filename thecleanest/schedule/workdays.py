@@ -7,11 +7,15 @@ HOLIDAYS = (
     datetime.date(2011, 11, 11),    # veterans day
     datetime.date(2011, 11, 24),    # thanksgiving
     datetime.date(2011, 11, 25),    # thanksgiving friday
+    datetime.date(2011, 12, 23),    # winter break
     datetime.date(2011, 12, 26),    # winter break
     datetime.date(2011, 12, 27),    # winter break
     datetime.date(2011, 12, 28),    # winter break
     datetime.date(2011, 12, 29),    # winter break
     datetime.date(2011, 12, 30),    # winter break
+    datetime.date(2012, 1, 2),      # winter break
+    datetime.date(2012, 1, 16),     # mlk day
+    datetime.date(2012, 2, 20),     # presidents day
 )
 
 def is_workday(date):
@@ -42,9 +46,9 @@ def workdays(start_date):
             yield current
         current = current + datetime.timedelta(days=1)
 
-        
+
 def next_workday(after):
-    days = date_range(after + datetime.timedelta(1), 
+    days = date_range(after + datetime.timedelta(1),
                       after + datetime.timedelta(days=365))
     for d in days:
         if is_workday(d):
