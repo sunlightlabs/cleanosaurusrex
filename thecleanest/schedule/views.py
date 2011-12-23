@@ -1,12 +1,12 @@
 
 from datetime import datetime, date, timedelta
-from itertools import islice
+from itertools import islice, takewhile
 from django.db.models import Count
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.core.serializers import serialize, deserialize
 from schedule.models import Assignment, Debit, Credit, NamelessWorker
-from schedule.workdays import date_range, weekdays, is_workday
+from schedule.workdays import date_range, weekdays, workdays, is_workday
 from notifications.models import Bone, Nudge
 import calendar
 
@@ -19,9 +19,14 @@ def index(request):
     today_range = (datetime(today.year, today.month, today.day, 0, 0, 0),
                    datetime(today.year, today.month, today.day, 23, 59, 59))
     monday = date.today() - timedelta(days=today_weekday)
+    friday = monday + timedelta(days=12)
+    two_weeks = list(weekdays(date_range(monday, friday)))
+
     assignments = Assignment.objects.filter(date__gte=monday).order_by('date')[:10]
-    week1_assignments = assignments[0:5]
-    week2_assignments = assignments[5:10]
+    assignments_by_date = dict(((a.date, a) for a in assignments))
+    week1_assignments = [assignments_by_date.get(dt) for dt in two_weeks[0:5]]
+    week2_assignments = [assignments_by_date.get(dt) for dt in two_weeks[5:10]]
+
     bone_count = Bone.objects.filter(timestamp__range=today_range).count()
     nudge_count = Nudge.objects.filter(timestamp__range=today_range).count()
 
@@ -144,12 +149,9 @@ def current_schedule(request):
 
 def kitchen(request):
     assignment = Assignment.objects.current_assignment()
-    if assignments is None:
-        return Http404('No one is scheduled for kitchen duty!')
-    else:
-        return render_to_response('kitchen.html', {
-                                      'worker': assignment.worker
-                                  })
+    return render_to_response('kitchen.html', {
+        'worker': assignment.worker if assignment else None
+    })
 
 def assignments(request):
     assignments = Assignment.objects.all()

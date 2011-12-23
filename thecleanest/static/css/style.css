@@ -173,6 +173,14 @@ header[role=banner] h2 {
 	padding: 0px 203px 0px 202px;
 }
 
+.vacation {
+	width: 77px;
+	height: 90px;
+	padding: 5px 25px;
+	margin: 0;
+	vertical-align: middle;
+}
+
 .profile {
 	background: url('/static/images/inset-bar.jpg') top left no-repeat;
 	width: 650px;

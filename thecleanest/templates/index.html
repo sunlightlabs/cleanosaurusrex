@@ -35,22 +35,34 @@
                 <tbody>
                     <tr>
                         {% for a in week1_assignments %}
-                        <td {% if a.date == today_date %}class="today"{% endif %}>
+						{% if a %}
+						<td {% if a.date == today_date %}class="today"{% endif %}>
                             <a href="{% url assignment_detail a.pk %}">
                                 <figure><img src="{{ a.worker.avatar_url }}"></figure>
                             </a>
                             <figcaption>{{ a.worker.first_name }}</figcaption>
-                        </td>
+						</td>
+						{% else %}
+						<td class="vacation">
+							<figcaption>Vacation!</figcaption>
+						</td>
+						{% endif %}
                         {% endfor %}
                     </tr>
                     <tr>
                         {% for a in week2_assignments %}
-                        <td>
+						{% if a %}
+						<td {% if a.date == today_date %}class="today"{% endif %}>
                             <a href="{% url assignment_detail a.pk %}">
                                 <figure><img src="{{ a.worker.avatar_url }}"></figure>
                             </a>
                             <figcaption>{{ a.worker.first_name }}</figcaption>
-                        </td>
+						</td>
+						{% else %}
+						<td class="vacation">
+							<figcaption>Vacation!</figcaption>
+						</td>
+						{% endif %}
                         {% endfor %}
                     </tr>
                 </tbody>

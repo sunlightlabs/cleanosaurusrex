@@ -18,6 +18,7 @@
 {% endblock %}
 
 {% block content %}
+	{% if worker %}
     <div id="kitchen" role="main">
 
         <img id="large-photo" src="{{ worker.avatar_url }}">
@@ -68,4 +69,21 @@
             </section>
         </div>
     </div>
+	{% else %}
+    <div id="kitchen" role="main">
+
+        <img id="large-photo" src="">
+
+        <section id="today-bar-area">
+            <div id="rex-kit"></div>
+            <div id="today-text-kit">
+                <span id="today-text">TODAY'S CLEANOSAUR: <span>No One!</span></span>
+            </div>
+            <div class="clear">
+        </section>
+        <section id="buttons-area">
+        </section>
+        <div class="clear"></div>
+    </div>
+	{% endif %}
 {% endblock %}
