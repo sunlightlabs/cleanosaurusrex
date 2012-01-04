@@ -1,3 +1,5 @@
+import datetime
+
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
@@ -8,7 +10,9 @@ def assignment_notify(assignment):
         return
 
     data = {
+        'now': datetime.datetime.now(),
         'assignment': assignment,
+        'enddate': assignment.date + datetime.timedelta(1),
         'worker': assignment.worker,
     }
 
@@ -18,10 +22,14 @@ def assignment_notify(assignment):
         from_email=settings.EMAIL_SENDER,
         to=(settings.EMAIL_RECIPIENT or assignment.worker.email,),
     )
+
+    cal = render_to_string('email/assignment.ics', data)
+
+    msg.attach('rexassignment%s.ics' % assignment.pk, cal, 'text/calendar')
     msg.send()
 
 def assignment_today(assignment):
-    
+
     if assignment.worker.email is None:
         return
 
@@ -37,9 +45,9 @@ def assignment_today(assignment):
         to=(settings.EMAIL_RECIPIENT or assignment.worker.email,),
     )
     msg.send()
-    
+
 def assignment_next_week(assignment):
-    
+
     if assignment.worker.email is None:
         return
 

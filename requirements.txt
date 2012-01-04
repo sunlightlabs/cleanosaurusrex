@@ -1,4 +1,4 @@
 django
-django-postmark
+-e git+https://github.com/goodtune/django-postmark.git#egg=django-postmark_dev
 django-tastypie
 mysql-python

@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+BEGIN:VEVENT
+UID:rexassignment{{ assignment.pk }}@rex.sunlightfoundation.com
+DTSTAMP:{{ now|date:"Ymd" }}T{{ now|date:"His"}}Z
+DTSTART;VALUE=DATE:{{ assignment.date|date:"Ymd" }}
+DTEND;VALUE=DATE:{{ enddate|date:"Ymd" }}
+X-FUNAMBOL-ALLDAY:1
+X-MICROSOFT-CDO-ALLDAYEVENT:1
+X-OATMEAL:Rinse your own!
+STATUS:CONFIRMED
+SUMMARY:Kitchen Duty
+DESCRIPTION:Need to defer?\nhttp://rex.sunlightfoundation.com/assignment/{{ assignment.defer_code }}/defer/
+END:VEVENT
+END:VCALENDAR
