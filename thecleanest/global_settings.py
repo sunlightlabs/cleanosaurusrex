@@ -76,4 +76,5 @@ SCHED_HORIZON = 31
 EXCUSED = [
     'jturk@sunlightfoundation.com',
     'paultag@sunlightfoundation.com',
+    'tneale@sunlightfoundation.com',
 ]
