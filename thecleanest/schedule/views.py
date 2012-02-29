@@ -66,7 +66,9 @@ def hall_of_fame(request):
 
 def hall_of_shame(request):
 
-    most_deferred = NamelessWorker.objects.annotate(num_debits=Count('debits')).filter(num_debits__gt=0).order_by('-num_debits')[:10]
+    workers = NamelessWorker.objects.all()
+    most_deferred = sorted((w for w in workers if w.balance() < 0),
+                            key=lambda w: w.balance())
     most_nudged = NamelessWorker.objects.annotate(num_nudges=Count('nudges')).filter(num_nudges__gt=0).order_by('-num_nudges')[:10]
 
     context = {

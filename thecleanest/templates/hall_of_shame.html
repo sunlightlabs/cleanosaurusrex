@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load absvalue %}
 
 {% block content %}
 
@@ -6,13 +7,15 @@
 
         <h4>Hall of Shame</h4>
 
-        <h5>Most deferred</h5>
+		<h5>Most deferred</h5>
 
         <ol>
             {% for worker in most_deferred %}
-                <li><a href="{% url worker_detail worker.pk %}">{{ worker.full_name }}</a> <span class="count">{{ worker.num_debits }}</span></li>
+                <li><a href="{% url worker_detail worker.pk %}">{{ worker.full_name }}</a> <span class="count">{{ worker.balance|absvalue }}</span></li>
             {% endfor %}
         </ol>
+
+		<span class="footnote">* Does not count days you defer that were originally assigned to someone else.</span>
 
         <h5>Most nudges</h5>
 

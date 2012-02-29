@@ -20,17 +20,12 @@ SUBJECTS = (
 def generate_uuid():
     return uuid.uuid4().hex
 
-class NamelessWorkerManager(models.Model):
-    pass
-
 class NamelessWorker(models.Model):
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
     email = models.EmailField()
     avatar_url = models.URLField(verify_exists=False, blank=True)
     is_active = models.BooleanField(default=False)
-
-    objects = NamelessWorkerManager()
 
     class Meta:
         ordering = ('last_name', 'first_name')
@@ -40,6 +35,9 @@ class NamelessWorker(models.Model):
 
     def full_name(self):
         return "%s %s" % (self.first_name, self.last_name)
+
+    def balance(self):
+        return self.credits.count() - self.debits.count()
 
     def unused_credits(self):
         return self.credits.filter(skipped_date__isnull=True)

@@ -371,3 +371,8 @@ footer {
 	width: 700px;
 	height: 10px;
 }
+
+span.footnote { 
+	font-size: 80%; 
+	font-style: italic; 
+}
