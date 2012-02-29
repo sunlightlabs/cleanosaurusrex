@@ -78,12 +78,12 @@ class Assignment(models.Model):
             raise ValueError('unable to defer assignments that have already been completed')
 
         # get a range of a week before and after today
-        week_ago = today - datetime.timedelta(7)
-        week_ahead = today + datetime.timedelta(7)
+        week_before = self.date - datetime.timedelta(7)
+        week_after = self.date + datetime.timedelta(7)
 
         # get a list of worker ids that have deferred within this 2 week range
         deferred_worker_ids = NamelessWorker.objects.filter(
-            debits__skipped_assignment__date__range=(week_ago, week_ahead)
+            debits__skipped_assignment__date__range=(week_before, week_after)
         ).values_list('pk', flat=True)
 
         # get a random worker that isn't the current one or a recently deferring worker
