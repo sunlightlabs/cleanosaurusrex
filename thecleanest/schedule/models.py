@@ -89,7 +89,7 @@ class Assignment(models.Model):
         # get a random worker that isn't the current one or a recently deferring worker
         # or an inactive worker.
         new_worker = NamelessWorker.objects.exclude(
-            Q(pk=self.worker.pk) | Q(pk__in=deferred_worker_ids) | Q(is_active=True)
+            Q(pk=self.worker.pk) | Q(pk__in=deferred_worker_ids) | Q(is_active=False)
         ).order_by('?')[0]
 
         # create the debit
