@@ -33,11 +33,19 @@ def generate_schedule():
         return bootstrap_schedule()
 
     latest_assignment = assignments[0]
-    start_worker = (latest_assignment.worker
-                    if latest_assignment.debits.count() == 0
-                    else latest_assignment.debits.order_by('timestamp')[0].worker)
+    try:
+        credit_for_date = Credit.objects.filter(skipped_date=latest_assignment.date)[0]
+        start_worker = credit_for_date.worker
+    except IndexError:
+        start_worker = latest_assignment.worker
 
-    workers = AlphaWorkerIter(after=start_worker)
+
+    try:
+        workers = AlphaWorkerIter(after=start_worker)
+    except Exception as e:
+        print "Unable to generate assignments:"
+        print str(e)
+        return
 
     start_date = latest_assignment.date + timedelta(days=1)
     stop_date = date.today() + timedelta(days=settings.SCHED_HORIZON)

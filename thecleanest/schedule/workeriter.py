@@ -8,10 +8,14 @@ class AlphaWorkerIter(object):
         self._workers = [w for w in NamelessWorker.objects.filter(is_active=True,
                                                                  ).order_by('last_name', 
                                                                             'first_name')]
+        self.cycle_head = self._workers[0]
+
         if after is not None:
             while self._workers[-1] != after:
                 w = self._workers.pop(0)
                 self._workers.append(w)
+                if self._workers[0] == self.cycle:
+                    raise Exception('NamelessWorker specified is not in the assignment rotation. Did they quit?')
  
     def __iter__(self):
         return self
