@@ -14,7 +14,7 @@ class AlphaWorkerIter(object):
             while self._workers[-1] != after:
                 w = self._workers.pop(0)
                 self._workers.append(w)
-                if self._workers[0] == self.cycle:
+                if self._workers[0] == self.cycle_head:
                     raise Exception('NamelessWorker specified is not in the assignment rotation. Did they quit?')
  
     def __iter__(self):
