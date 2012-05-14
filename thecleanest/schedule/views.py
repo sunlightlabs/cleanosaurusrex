@@ -54,6 +54,11 @@ def full_schedule(request):
     
     return render(request, "schedule_full.html", context)
 
+def frequency(request):
+    workers = NamelessWorker.objects.annotate(cnt=Count('assignments')).order_by('-cnt')
+    context = {'workers': workers}
+    return render(request, 'counts.html', context)
+
 def hall_of_fame(request):
 
     most_boned = NamelessWorker.objects.annotate(num_bones=Count('bones')).filter(num_bones__gt=0).order_by('-num_bones')[:10]
@@ -85,6 +90,7 @@ def assignment_detail(request, assignment_id):
     context = {
         'assignment': assignment,
         'debits': Debit.objects.filter(skipped_assignment=assignment).select_related(),
+        'credits': Credit.objects.filter(skipped_date=assignment.date)
     }
 
     return render(request, 'assignment_detail.html', context)

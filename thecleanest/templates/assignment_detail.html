@@ -38,8 +38,26 @@
             </ul>
 
         {% else %}
+        
+            {% if credits %}
 
-            <p>{{ assignment.worker.first_name }} is the original assignee.</p>
+                <ul>
+                    {% for credit in credits %}
+                        <li>
+                            {% if credit.debit.worker.pk == assignment.worker.pk %}
+                                {{ assignment.worker.full_name }} was scheduled for this day because they deferred to {{ credit.debit.skipped_assignment.worker.full_name }} on {{ credit.debit.skipped_assignment.date }}.
+                            {% else %}
+                                {{ assignment.worker.full_name }} should not have worked this day. I made a boo boo.
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            {% else %}
+
+                <p>{{ assignment.worker.first_name }} was originally scheduled on this day.</p>
+
+            {% endif %}
 
         {% endif %}
 
