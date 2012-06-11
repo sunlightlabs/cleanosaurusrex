@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="content">
+
+        <h2><span class="worker-name">Worker</span><span class="worker-count">Count</span></h2>
+
+        <ol>
+            {% for worker in workers %}
+                <li><span class="worker-name"><a href="{% url worker_detail worker.pk %}">{{ worker.full_name }}</a></span> <span class="count">{{ worker.cnt }}</span></li>
+            {% endfor %}
+        </ol>
+
+    </h4>
+
+{% endblock %}
+
