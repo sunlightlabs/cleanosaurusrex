@@ -113,6 +113,26 @@ class Assignment(models.Model):
 
         return debit
 
+    def defer_to(self, new_worker):
+        assert isinstance(new_worker, NamelessWorker)
+        debit = Debit.objects.create(
+            worker=self.worker,
+            skipped_assignment=self
+        )
+
+        credit = Credit.objects.create(
+            debit=debit,
+            worker=new_worker
+        )
+
+        self.worker = new_worker
+        self.defer_code = generate_uuid()
+        self.save()
+
+        email.defer_notify(debit)
+
+        return debit
+
 
 class Debit(models.Model):
     worker = models.ForeignKey(NamelessWorker, related_name='debits', null=False)
