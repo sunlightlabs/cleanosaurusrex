@@ -158,6 +158,7 @@ def current_schedule(request):
 def kitchen(request):
     assignment = Assignment.objects.current_assignment()
     return render_to_response('kitchen.html', {
+        'today': date.today(),
         'worker': assignment.worker if assignment else None
     })
 

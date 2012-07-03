@@ -275,6 +275,13 @@ h3 span.name { display: block; }
 	letter-spacing: 1px;
 	display: block;
 }
+#today-date {
+    display: none;
+	font-family: 'OstrichSansRoundedMedium';
+	font-size: 46px;
+	padding: 4px 0px 0px 84px;
+	letter-spacing: 1px;
+}
 
 .rotate-names {
 
