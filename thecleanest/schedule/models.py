@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Q
 from thecleanest.notifications import email
+import random
 import datetime
 import uuid
 
@@ -70,14 +71,8 @@ class Assignment(models.Model):
     def is_complete(self):
         return self.date < datetime.date.today()
 
-    def defer(self):
-
-        today = datetime.date.today()
-
-        if today > self.date:
-            raise ValueError('unable to defer assignments that have already been completed')
-
-        # get a range of a week before and after today
+    def eligible_defer_targets(self):
+        # get a range of a week before and after this assignment
         week_before = self.date - datetime.timedelta(7)
         week_after = self.date + datetime.timedelta(7)
 
@@ -86,11 +81,23 @@ class Assignment(models.Model):
             debits__skipped_assignment__date__range=(week_before, week_after)
         ).values_list('pk', flat=True)
 
+        eligible_workers = NamelessWorker.objects.exclude(
+            Q(pk=self.worker.pk) | Q(pk__in=deferred_worker_ids) | Q(is_active=False)
+        )
+        return eligible_workers
+
+    def defer(self):
+
+        today = datetime.date.today()
+
+        if today > self.date:
+            raise ValueError('unable to defer assignments that have already been completed')
+
+        eligible_workers = self.eligible_defer_targets()
         # get a random worker that isn't the current one or a recently deferring worker
         # or an inactive worker.
-        new_worker = NamelessWorker.objects.exclude(
-            Q(pk=self.worker.pk) | Q(pk__in=deferred_worker_ids) | Q(is_active=False)
-        ).order_by('?')[0]
+        eligible_workers.sort(key=random.random)
+        new_worker = eligible_workers[0]
 
         # create the debit
         debit = Debit.objects.create(

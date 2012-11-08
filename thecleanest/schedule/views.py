@@ -59,6 +59,16 @@ def frequency(request):
     context = {'workers': workers}
     return render(request, 'counts.html', context)
 
+def eligibles(request, date):
+    assignment = get_object_or_404(Assignment, date=date)
+    eligibles = assignment.eligible_defer_targets()
+
+    return render_to_response('eligibles.html', {
+        'date': date,
+        'eligibles': eligibles,
+        'assigned': assignment.worker if assignment else None
+    })
+
 def hall_of_fame(request):
 
     most_boned = NamelessWorker.objects.annotate(num_bones=Count('bones')).filter(num_bones__gt=0).order_by('-num_bones')[:10]
