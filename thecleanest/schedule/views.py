@@ -1,12 +1,14 @@
 
 from datetime import datetime, date, timedelta
 from itertools import islice, takewhile
+import dateutil.parser
 from django.db.models import Count
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.shortcuts import render_to_response, render, get_object_or_404
+from django.shortcuts import render_to_response, render, get_object_or_404, redirect
 from django.core.serializers import serialize, deserialize
+from django.core.urlresolvers import reverse
 from schedule.models import Assignment, Debit, Credit, NamelessWorker
-from schedule.workdays import date_range, weekdays, workdays, is_workday
+from schedule.workdays import date_range, weekdays, is_workday, is_holiday, is_weekend
 from notifications.models import Bone, Nudge
 import calendar
 
@@ -60,6 +62,10 @@ def frequency(request):
     return render(request, 'counts.html', context)
 
 def eligibles(request, date):
+    date = dateutil.parser.parse(date).date()
+    if not is_workday(date):
+        return redirect(reverse("non_workday", kwargs={'date': date.strftime("%Y-%m-%d")}))
+
     assignment = get_object_or_404(Assignment, date=date)
     eligibles = assignment.eligible_defer_targets()
 
@@ -68,6 +74,17 @@ def eligibles(request, date):
         'eligibles': eligibles,
         'assigned': assignment.worker if assignment else None
     })
+
+def non_workday(request, date):
+    date = dateutil.parser.parse(date).date()
+    if is_workday(date):
+        raise Http404()
+
+    context = {
+        'holiday': is_holiday(date),
+        'weekend': is_weekend(date)
+    }
+    return render(request, "non-workday.html", context)
 
 def hall_of_fame(request):
 

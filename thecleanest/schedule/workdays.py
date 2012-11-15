@@ -35,11 +35,17 @@ HOLIDAYS = (
 
 def is_workday(date):
     """ Test to see if given date is a work day.
-        Word days are defined as weekdays that are not paid holidays.
+        Work days are defined as weekdays that are not paid holidays.
     """
 
     day_of_week = date.weekday()
     return day_of_week in WEEKDAYS and date not in HOLIDAYS
+
+def is_holiday(date):
+    return date in HOLIDAYS
+
+def is_weekend(date):
+    return date.weekday() not in WEEKDAYS
 
 def date_range(start_date, end_date):
     """ Generate days from start_date to end_date, inclusive

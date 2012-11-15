@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^eligible/(\d{4}-\d{1,2}-\d{1,2})/$', 'schedule.views.eligibles'),
     url(r'^schedule', 'schedule.views.current_schedule'),
     url(r'^worker/(?P<worker_id>\d+)/$', 'schedule.views.worker_detail', name='worker_detail'),
+    url(r'^off/(?P<date>\d{4}-\d{2}-\d{2})/$', 'schedule.views.non_workday', name="non_workday"),
     url(r'^$', 'schedule.views.index'),
 )
 
