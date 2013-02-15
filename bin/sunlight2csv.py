@@ -1,7 +1,7 @@
-import csv
 import json
 import sys
 import urllib2
+import unicodecsv as csv
 
 AVATAR_URL = "http://assets.sunlightfoundation.com/images/blog/avatars/300/300x300_%s.jpg"
 
