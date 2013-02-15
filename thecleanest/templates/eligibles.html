@@ -1,18 +1,49 @@
 {% extends "base.html" %}
+{% load mathfilters %}
 
 {% block content %}
 
     <div class="content">
 
-        Assgigned: {{ assigned }}
-        <br>
-        Eligibles:
+        <h1><b>Assgigned<b></h1>
+        {{ assigned }}
+
         <br>
 
-        {% for worker in eligibles %}
-            {{ worker.full_name }}
-            <br>
-        {% endfor %}
+        {{ normalization_coeff }}
+        <h1><b>Eligible Deferral Targets</b></h1>
+        <table id="eligibles" class="tablesorter">
+            <thead>
+                <tr>
+                    <th>Worker</th>
+                    <th>Balance</th>
+                    <th>Assignments</th>
+                    <th>Assignment Interval</th>
+                    <th>Deferral Weight</th>
+                    <th>Deferral Weight (Norm)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for worker in eligibles %}
+                <tr>
+                    <td><a href="{% url worker_detail worker.pk %}">{{ worker.full_name }}</a></td>
+                    {% if worker.is_active %}
+                    <td class="numeric">{{ worker.balance }}</td>
+                    <td class="numeric" data-value="{% firstof worker.assignments.count '' %}">{{ worker.assignments.count }}</td>
+                    <td class="numeric" data-value="{% firstof worker.assignment_interval '' %}">{{ worker.assignment_interval }} days</td>
+                    <td class="numeric" data-value="{% firstof worker.deferral_weight '' %}">{{ worker.deferral_weight }}</td>
+                    <td class="numeric" data-value="{% firstof worker.deferral_weight|mul:norm_coeff '' %}">{{ worker.deferral_weight|mul:norm_coeff }}</td>
+                    {% else %}
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 {% endblock %}

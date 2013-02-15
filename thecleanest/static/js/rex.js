@@ -16,5 +16,18 @@
                  success: display_assignments,
                  error: display_ajax_error 
                });
+
+        $("table#eligibles").tablesorter({
+            sortList: [[3,1]],
+            textExtraction: function(node){
+                console.log(node);
+                var value = $(node).attr('data-value');
+                if (value != null) {
+                    return value;
+                } else {
+                    return $(node).text();
+                }
+            }
+        });
     });
 })();

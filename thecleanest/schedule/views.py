@@ -1,4 +1,6 @@
+from __future__ import division
 
+import math
 from datetime import datetime, date, timedelta
 from itertools import islice, takewhile
 import dateutil.parser
@@ -67,11 +69,14 @@ def eligibles(request, date):
         return redirect(reverse("non_workday", kwargs={'date': date.strftime("%Y-%m-%d")}))
 
     assignment = get_object_or_404(Assignment, date=date)
-    eligibles = assignment.eligible_defer_targets()
+    eligibles = list(assignment.eligible_defer_targets())
+    min_deferral_weight = min([w.deferral_weight() for w in eligibles])
 
     return render_to_response('eligibles.html', {
         'date': date,
         'eligibles': eligibles,
+        'min_deferral_weight': min_deferral_weight,
+        'norm_coeff': 1 / min_deferral_weight,
         'assigned': assignment.worker if assignment else None
     })
 
@@ -121,6 +126,14 @@ def assignment_detail(request, assignment_id):
     }
 
     return render(request, 'assignment_detail.html', context)
+
+def assignment_detail_by_date(request, date):
+    date = dateutil.parser.parse(date).date()
+    if not is_workday(date):
+        return redirect(reverse("non_workday", kwargs={'date': date.strftime("%Y-%m-%d")}))
+
+    assignment = get_object_or_404(Assignment, date=date)
+    return assignment_detail(request, assignment.id)
 
 def defer_assignment(request, defer_code):
 

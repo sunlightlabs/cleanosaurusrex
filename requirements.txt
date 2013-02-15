@@ -2,3 +2,6 @@ django
 -e git+https://github.com/goodtune/django-postmark.git#egg=django-postmark_dev
 django-tastypie
 mysql-python
+django-extensions
+unicodecsv==0.9.4
+django-mathfilters==0.1.3
