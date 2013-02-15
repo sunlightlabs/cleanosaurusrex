@@ -80,4 +80,5 @@ EXCUSED = [
     'paultag@sunlightfoundation.com',
     'tneale@sunlightfoundation.com',
     'ethan@sunlightfoundation.com',
+    'bpease@sunlightfoundation.com',
 ]
