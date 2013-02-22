@@ -1,0 +1,4 @@
+TODO:
+  * Ability to fix a worker's deferral weight (e.g. for people who are often out of the office).
+  * Display average assignment interval on employee page.
+  * Show photo of originally deferring worker on the kitchen page.
