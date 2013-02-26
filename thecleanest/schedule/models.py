@@ -57,7 +57,7 @@ class NamelessWorker(models.Model):
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
     email = models.EmailField()
-    avatar_url = models.URLField(verify_exists=False, blank=True)
+    avatar_url = models.URLField(blank=True)
     is_active = models.BooleanField(default=False)
     objects = NamelessWorkerManager()
 
@@ -154,7 +154,7 @@ class Assignment(models.Model):
         )
 
         # Workers who have had kitchen duty multiple times per cycle
-        # should be ignored. We use only 80% of the cycle length to 
+        # should be ignored. We use only 80% of the cycle length to
         # avoid depleting the pool too much during common vacation periods.
         ival_threshold = int(math.floor(NamelessWorker.objects.cycle_length_in_days() * float(0.8)))
         eligible_workers = [w
