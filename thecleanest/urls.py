@@ -1,5 +1,5 @@
 from django.views.generic.simple import direct_to_template
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from thecleanest.resources import *
 
