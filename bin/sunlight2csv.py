@@ -3,8 +3,6 @@ import sys
 import urllib2
 import unicodecsv as csv
 
-AVATAR_URL = "http://assets.sunlightfoundation.com/images/blog/avatars/300/300x300_%s.jpg"
-
 res = urllib2.urlopen('http://sunlightfoundation.com/people/?json')
 staff = json.load(res)
 
@@ -18,5 +16,5 @@ for role in ('founders', 'general_staff'):
                 employee['first_name'],
                 employee['last_name'],
                 employee['email'],
-                AVATAR_URL % employee['username'],
+                employee['avatar_alt'] # Cheeky diversion
             ))
