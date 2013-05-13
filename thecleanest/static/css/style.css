@@ -76,20 +76,19 @@ button {  width: auto; overflow: visible; }
 
 @font-face {
     font-family: 'OstrichSansRoundedMedium';
-    src: url('/static/fonts/ostrich-rounded-webfont.woff') format('woff'),
-         url('/static/fonts/ostrich-rounded-webfont.ttf') format('truetype');
+    src: url('../fonts/ostrich-rounded-webfont.woff') format('woff'),
+         url('../fonts/ostrich-rounded-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
-    font-family: 'OstrichSansBlack';
-    src: url('/static/fonts/ostrich-black-webfont.woff') format('woff'),
-         url('/static/fonts/ostrich-black-webfont.ttf') format('truetype');
+    font-family: 'OstrichSansInline';
+    src: url('../fonts/ostrich-sans-inline-regular.woff') format('woff'),
+         url('../fonts/ostrich-sans-inline-regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-
 }
+
 
 /* The Ostrich Sans typeface designed by Tyler Finck and made available through The League of Moveable Type and subject to the Open Font License*/
 
@@ -211,7 +210,8 @@ a, a:visited { color: #489; }
 
 h3 {
 	color: #f9f3e6;
-	font-family: 'OstrichSansBlack';
+	font-family: 'OstrichSansInline';
+    font-weight: bold;
 	font-size: 30px;
 	line-height: 33px;
 	letter-spacing: 2px;
@@ -269,7 +269,8 @@ h3 span.name { display: block; }
 }
 
 #today-text {
-	font-family: 'OstrichSansRoundedMedium';
+	font-family: 'OstrichSansInline';
+    font-weight: bold;
 	font-size: 46px;
 	padding: 4px 0px 0px 130px;
 	letter-spacing: 1px;
@@ -277,7 +278,8 @@ h3 span.name { display: block; }
 }
 #today-date {
     display: none;
-	font-family: 'OstrichSansRoundedMedium';
+	font-family: 'OstrichSansInline';
+    font-weight: bold;
 	font-size: 46px;
 	padding: 4px 0px 0px 84px;
 	letter-spacing: 1px;
