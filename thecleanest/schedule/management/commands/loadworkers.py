@@ -19,6 +19,10 @@ class Command(NoArgsCommand):
             try:
 
                 worker = NamelessWorker.objects.get(email=record['email'])
+                if record['avatar_url']:
+                    if worker.avatar_url != record['avatar_url']:
+                        worker.avatar_url = record['avatar_url']
+                        worker.save()
 
             except NamelessWorker.DoesNotExist:
 
@@ -26,7 +30,7 @@ class Command(NoArgsCommand):
                     first_name=record['first_name'],
                     last_name=record['last_name'],
                     email=record['email'],
-                    avatar_url=record['avatar_url'],
+                    avatar_url=record['avatar_alt'],
                 )
 
             worker.is_active = record['email'] not in excused
