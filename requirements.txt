@@ -1,5 +1,6 @@
-django
--e git+https://github.com/goodtune/django-postmark.git#egg=django-postmark_dev
+pip>=1.3.1
+Django==1.4
+git+https://github.com/drinks/django-postmark.git#egg=django-postmark
 django-tastypie
 mysql-python
 django-extensions
