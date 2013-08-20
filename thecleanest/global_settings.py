@@ -8,6 +8,7 @@ LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 
+USE_TZ = True
 USE_I18N = True
 USE_L10N = True
 
