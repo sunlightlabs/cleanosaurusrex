@@ -59,6 +59,7 @@ class NamelessWorker(models.Model):
     email = models.EmailField()
     avatar_url = models.URLField(blank=True)
     is_active = models.BooleanField(default=False)
+    deferral_exempt = models.BooleanField(default=False)
     objects = NamelessWorkerManager()
 
     class Meta:
@@ -151,6 +152,7 @@ class Assignment(models.Model):
             | Q(pk__in=deferred_worker_ids)
             | Q(pk__in=assigned_worker_ids)
             | Q(is_active=False)
+            | Q(deferral_exempt=True)
         )
 
         # Workers who have had kitchen duty multiple times per cycle
