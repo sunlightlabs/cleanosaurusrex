@@ -30,7 +30,7 @@ class Command(NoArgsCommand):
                     first_name=record['first_name'],
                     last_name=record['last_name'],
                     email=record['email'],
-                    avatar_url=record['avatar_alt'],
+                    avatar_url=record['avatar_url'],
                 )
 
             worker.is_active = record['email'] not in excused
