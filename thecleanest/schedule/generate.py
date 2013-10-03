@@ -44,13 +44,6 @@ def generate_schedule():
         start_worker = credits_for_date[0].worker
 
     try:
-        credit_for_date = Credit.objects.filter(skipped_date=latest_assignment.date)[0]
-        start_worker = credit_for_date.worker
-    except IndexError:
-        start_worker = latest_assignment.worker
-
-
-    try:
         workers = AlphaWorkerIter(after=start_worker)
     except Exception as e:
         print "Unable to generate assignments:"
