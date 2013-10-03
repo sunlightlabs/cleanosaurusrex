@@ -7,3 +7,4 @@ django-extensions
 unicodecsv==0.9.4
 django-mathfilters==0.1.3
 raven=3.5.0
+South==0.8.2

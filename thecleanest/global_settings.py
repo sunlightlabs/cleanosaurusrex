@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'raven.contrib.django.raven_compat',
+    'south',
     'postmark',
     'tastypie',
     'mathfilters',
