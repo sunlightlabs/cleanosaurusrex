@@ -78,13 +78,14 @@ def defer_notify(debit):
 
     # message to worker deferring their day
 
-    msg = EmailMessage(
-        subject="[Cleanosaurus Rex] Cleanosaurus: Working around your conflicts since 2011",
-        body=render_to_string('email/defer_slacker.txt', data),
-        from_email=settings.EMAIL_SENDER,
-        to=(settings.EMAIL_RECIPIENT or debit.worker.email,),
-    )
-    msg.send()
+    if debit.worker.is_active == True:
+        msg = EmailMessage(
+            subject="[Cleanosaurus Rex] Cleanosaurus: Working around your conflicts since 2011",
+            body=render_to_string('email/defer_slacker.txt', data),
+            from_email=settings.EMAIL_SENDER,
+            to=(settings.EMAIL_RECIPIENT or debit.worker.email,),
+        )
+        msg.send()
 
     # message to the person that was swapped in
 
