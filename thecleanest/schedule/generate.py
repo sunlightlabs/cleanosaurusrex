@@ -33,6 +33,16 @@ def generate_schedule():
         return bootstrap_schedule()
 
     latest_assignment = assignments[0]
+    credits_for_date = Credit.objects.filter(skipped_date=latest_assignment.date)
+    if len(credits_for_date) == 0:
+        coupons_for_date = Coupon.objects.filter(skipped_date=latest_assignment.date)
+        if len(coupons_for_date) == 0:
+            start_worker = latest_assignment.worker
+        else:
+            start_worker = coupons_for_date[0].worker
+    else:
+        start_worker = credits_for_date[0].worker
+
     try:
         credit_for_date = Credit.objects.filter(skipped_date=latest_assignment.date)[0]
         start_worker = credit_for_date.worker

@@ -108,6 +108,30 @@ class NamelessWorker(models.Model):
         else:
             return None
 
+    def pending_assignments(self):
+        return self.assignments.filter(date__gte=datetime.date.today())
+
+    def unsatisfied_debits(self):
+        return Debit.objects.filter(credits__skipped_date=None, worker=self)
+
+    def defer_pending_assignments(self):
+        for ass in self.pending_assignments():
+            ass.defer()
+
+    def satisfy_debits(self):
+        for debit in self.unsatisfied_debits():
+            for credit in debit.credits.all():
+                note = u"From deactivation of {name}".format(name=self.full_name())
+                credit.convert_to_coupon(note)
+
+    def deactivate(self):
+        self.is_active = False
+        self.save()
+
+        self.defer_pending_assignments()
+        self.satisfy_debits()
+
+
 class AssignmentManager(models.Manager):
 
     def current_assignment(self):
@@ -219,7 +243,6 @@ class Assignment(models.Model):
 
         return debit
 
-
 class Debit(models.Model):
     worker = models.ForeignKey(NamelessWorker, related_name='debits', null=False)
     skipped_assignment = models.ForeignKey(Assignment, related_name='debits', null=True)
@@ -235,8 +258,9 @@ class Credit(models.Model):
     debit = models.ForeignKey(Debit, related_name='credits', null=True)
     worker = models.ForeignKey(NamelessWorker, related_name='credits', null=False)
     # skipped_date is set when the generation function uses the credit
+    # A skipped_date of 1970-01-01 means canceled.
     skipped_date = models.DateField(default=None, null=True)
-    timestamp = models.DateTimeField(default=datetime.datetime.now)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ('timestamp',)
@@ -244,11 +268,22 @@ class Credit(models.Model):
     def __unicode__(self):
         return u"%s credited to %s" % (self.debit, self.worker.full_name())
 
+    def convert_to_coupon(self, note=None):
+        self.skipped_date = datetime.date(1970, 1, 1)
+        self.save()
+
+        coupon = Coupon.objects.create(
+            worker=self.worker,
+            note=(note or u'Converted from Credit(pk={})'.format(self.pk)),
+            credit=self)
+        return coupon
+
 class Coupon(models.Model):
     worker = models.ForeignKey(NamelessWorker, related_name='coupons', null=False)
     skipped_date = models.DateField(default=None, null=True)
     note = models.CharField(max_length=5000, null=True)
-    timestamp = models.DateTimeField(null=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    credit = models.OneToOneField(Credit, null=True)
 
 class Rating(models.Model):
     assignment = models.ForeignKey(Assignment, related_name="ratings")
