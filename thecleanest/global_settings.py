@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'raven.contrib.django.raven_compat',
     'postmark',
     'tastypie',
     'mathfilters',
