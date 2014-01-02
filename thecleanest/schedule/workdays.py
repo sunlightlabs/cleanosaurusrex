@@ -31,6 +31,17 @@ HOLIDAYS = (
     datetime.date(2013, 1, 1),      # winter break
     datetime.date(2013, 1, 21),     # mlk day
     datetime.date(2013, 2, 18),     # presidents day
+
+    datetime.date(2014, 1, 1),      # new years
+    datetime.date(2014, 1, 20),     # MLK
+    datetime.date(2014, 2, 17),     # Washington's birthday
+    datetime.date(2014, 5, 26),     # Memorial day
+    datetime.date(2014, 7, 4),      # Independence day
+    datetime.date(2014, 9, 1),      # Labor day
+    datetime.date(2014, 10, 13),    # Columbus day
+    datetime.date(2014, 11, 11),    # Veteran's day
+    datetime.date(2014, 11, 27),    # Thanksgiving
+    datetime.date(2014, 12, 25),    # Christmas
 )
 
 def is_workday(date):
