@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.management.base import NoArgsCommand, CommandError
+from thecleanest.notifications.email import disaster
 from thecleanest.schedule.models import NamelessWorker
 import csv
 import sys
@@ -37,4 +38,10 @@ class Command(NoArgsCommand):
             worker.save()
 
         # deactivate anyone that was not in the incoming use list
-        NamelessWorker.objects.exclude(email__in=emails).update(is_active=False)
+        workers_to_deactivate = NamelessWorker.objects.filter(is_active=True).exclude(email__in=emails)
+        worker_count = workers_to_deactivate.count()
+        if worker_count > 2:
+            disaster('%i workers will soon be deactivated. This seems like too many.' % worker_count)
+        else:
+            for worker in workers_to_deactivate:
+                worker.deactivate()

@@ -127,3 +127,16 @@ def bone_notify(bone):
         to=(settings.EMAIL_RECIPIENT or bone.target.email,),
     )
     msg.send()
+
+
+def disaster(message):
+
+    data = {'message': message}
+
+    msg = EmailMessage(
+        subject='[Cleanosaurus Rex] DISASTER!',
+        body=render_to_string('email/disaster.txt', data),
+        from_email=settings.EMAIL_SENDER,
+        to=[u[1] for u in settings.ADMINS],
+    )
+    msg.send()
