@@ -3,7 +3,7 @@ import sys
 import urllib2
 import unicodecsv as csv
 
-res = urllib2.urlopen('http://sunlightfoundation.com/people/?json')
+res = urllib2.urlopen('http://sunlightfoundation.com/team/?json')
 staff = json.load(res)
 
 writer = csv.writer(sys.stdout)
