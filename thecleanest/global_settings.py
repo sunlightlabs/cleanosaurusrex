@@ -80,7 +80,5 @@ EXCUSED = [
     'jturk@sunlightfoundation.com',
     'paultag@sunlightfoundation.com',
     'tneale@sunlightfoundation.com',
-    'ethan@sunlightfoundation.com',
-    'bpease@sunlightfoundation.com',
-    'showell@sunlightfoundation.com',
+    'dheart@sunlightfoundation.com',
 ]
