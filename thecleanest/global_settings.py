@@ -75,7 +75,7 @@ EMAIL_RECIPIENT = None
 API_LIMIT_PER_PAGE = 100
 
 NUDGE_GRACE_PERIOD = timedelta(minutes=30)
-SCHED_HORIZON = 35
+SCHED_HORIZON = 31
 EXCUSED = [
     'jturk@sunlightfoundation.com',
     'paultag@sunlightfoundation.com',
