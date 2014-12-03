@@ -23,9 +23,9 @@ def assignment_notify(assignment):
         to=(settings.EMAIL_RECIPIENT or assignment.worker.email,),
     )
 
-    cal = render_to_string('email/assignment.ics', data)
+    # cal = render_to_string('email/assignment.ics', data)
+    # msg.attach('rexassignment%s.ics' % assignment.pk, cal, 'text/calendar')
 
-    msg.attach('rexassignment%s.ics' % assignment.pk, cal, 'text/calendar')
     msg.send()
 
 def assignment_today(assignment):
