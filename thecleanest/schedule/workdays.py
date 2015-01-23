@@ -53,11 +53,14 @@ HOLIDAYS = (
     datetime.date(2015, 11, 11),    # Veteran's day
     datetime.date(2015, 11, 26),    # Thanksgiving
     datetime.date(2015, 11, 27),    # Thanksgiving
-    datetime.date(2015, 12, 25),    # Holiday
-    datetime.date(2015, 12, 28),    # Holiday
-    datetime.date(2015, 12, 29),    # Holiday
-    datetime.date(2015, 12, 30),    # Holiday
-    datetime.date(2015, 12, 31),    # Holiday
+    datetime.date(2015, 12, 24),    # winter break
+    datetime.date(2015, 12, 25),    # winter break
+    datetime.date(2015, 12, 28),    # winter break
+    datetime.date(2015, 12, 29),    # winter break
+    datetime.date(2015, 12, 30),    # winter break
+    datetime.date(2015, 12, 31),    # winter break
+    
+    datetime.date(2016, 1, 1),    # winter break
 )
 
 def is_workday(date):
