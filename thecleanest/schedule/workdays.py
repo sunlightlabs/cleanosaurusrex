@@ -42,6 +42,22 @@ HOLIDAYS = (
     datetime.date(2014, 11, 11),    # Veteran's day
     datetime.date(2014, 11, 27),    # Thanksgiving
     datetime.date(2014, 12, 25),    # Christmas
+    
+    datetime.date(2015, 1, 1),      # new years
+    datetime.date(2015, 1, 19),     # MLK
+    datetime.date(2015, 2, 16),     # President's day
+    datetime.date(2015, 5, 25),     # Memorial day
+    datetime.date(2015, 7, 3),      # Independence day
+    datetime.date(2015, 9, 7),      # Labor day
+    datetime.date(2015, 10, 12),    # Columbus day
+    datetime.date(2015, 11, 11),    # Veteran's day
+    datetime.date(2015, 11, 26),    # Thanksgiving
+    datetime.date(2015, 11, 27),    # Thanksgiving
+    datetime.date(2015, 12, 25),    # Holiday
+    datetime.date(2015, 12, 28),    # Holiday
+    datetime.date(2015, 12, 29),    # Holiday
+    datetime.date(2015, 12, 30),    # Holiday
+    datetime.date(2015, 12, 31),    # Holiday
 )
 
 def is_workday(date):
