@@ -78,4 +78,5 @@ NUDGE_GRACE_PERIOD = timedelta(minutes=30)
 SCHED_HORIZON = 31
 EXCUSED = [
     'dheart@sunlightfoundation.com',
+    'cgates@sunlightfoundation.com',
 ]
