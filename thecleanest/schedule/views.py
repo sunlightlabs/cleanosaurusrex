@@ -7,6 +7,7 @@ import dateutil.parser
 from django.db.models import Count
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, render, get_object_or_404, redirect
+from django.conf import settings
 from django.core.serializers import serialize, deserialize
 from django.core.urlresolvers import reverse
 from schedule.models import Assignment, Debit, Credit, NamelessWorker
@@ -49,13 +50,13 @@ def index(request):
     return render(request, "index.html", context)
 
 def full_schedule(request):
-    
+
     today = date.today()
     last_week = today - timedelta(days=7)
     assignments = Assignment.objects.filter(date__gte=last_week).order_by('date')
-    
+
     context = {'assignments': assignments, 'today': today}
-    
+
     return render(request, "schedule_full.html", context)
 
 def frequency(request):
@@ -103,7 +104,9 @@ def hall_of_fame(request):
 
 def hall_of_shame(request):
 
+
     workers = NamelessWorker.objects.all()
+    excused = workers.filter(email__in=getattr(settings, 'EXCUSED', []))
     most_deferred = sorted((w for w in workers if w.balance() < 0),
                             key=lambda w: w.balance())
     most_nudged = NamelessWorker.objects.annotate(num_nudges=Count('nudges')).filter(num_nudges__gt=0).order_by('-num_nudges')[:10]
@@ -111,6 +114,7 @@ def hall_of_shame(request):
     context = {
         'most_deferred': most_deferred,
         'most_nudged': most_nudged,
+        'excused': excused,
     }
 
     return render(request, 'hall_of_shame.html', context)

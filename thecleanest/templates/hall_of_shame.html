@@ -8,7 +8,6 @@
         <h4>Hall of Shame</h4>
 
 		<h5>Most deferred</h5>
-
         <ol>
             {% for worker in most_deferred %}
                 <li><a href="{% url worker_detail worker.pk %}">{{ worker.full_name }}</a> <span class="count">{{ worker.balance|absvalue }}</span></li>
@@ -18,10 +17,16 @@
 		<span class="footnote">* Does not count days you defer that were originally assigned to someone else.</span>
 
         <h5>Most nudges</h5>
-
         <ol>
             {% for worker in most_nudged %}
                 <li><a href="{% url worker_detail worker.pk %}">{{ worker.full_name }}</a> <span class="count">{{ worker.num_nudges }}</span></li>
+            {% endfor %}
+        </ol>
+
+        <h5>Excused from Duty</h5>
+        <ol>
+            {% for worker in excused %}
+                <li>{{ worker.full_name }}</li>
             {% endfor %}
         </ol>
 
